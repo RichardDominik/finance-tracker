@@ -32,12 +32,12 @@
         "source": "/Users/beowulf/.gradle/caches/transforms-2/files-2.1/03cbc874fca34cfdd4046bf69923b8d9/material-1.1.0/res/drawable-v21/avd_hide_password.xml"
     },
     {
-        "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_abc_btn_switch_to_on_mtrl_00012.9.png.flat",
-        "source": "/Users/beowulf/.gradle/caches/transforms-2/files-2.1/0c1936c30a85396091c438d3d714fea2/appcompat-1.1.0/res/drawable-mdpi-v4/abc_btn_switch_to_on_mtrl_00012.9.png"
-    },
-    {
         "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_ic_menu_selectall_mtrl_alpha.png.flat",
         "source": "/Users/beowulf/.gradle/caches/transforms-2/files-2.1/0c1936c30a85396091c438d3d714fea2/appcompat-1.1.0/res/drawable-xhdpi-v4/abc_ic_menu_selectall_mtrl_alpha.png"
+    },
+    {
+        "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/drawable-mdpi-v4_abc_btn_switch_to_on_mtrl_00012.9.png.flat",
+        "source": "/Users/beowulf/.gradle/caches/transforms-2/files-2.1/0c1936c30a85396091c438d3d714fea2/appcompat-1.1.0/res/drawable-mdpi-v4/abc_btn_switch_to_on_mtrl_00012.9.png"
     },
     {
         "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4_abc_scrubber_control_to_pressed_mtrl_005.png.flat",
@@ -72,12 +72,12 @@
         "source": "/Users/beowulf/.gradle/caches/transforms-2/files-2.1/03cbc874fca34cfdd4046bf69923b8d9/material-1.1.0/res/anim/design_snackbar_out.xml"
     },
     {
-        "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_normal.9.png.flat",
-        "source": "/Users/beowulf/.gradle/caches/transforms-2/files-2.1/7ea99ae170f37e74143993a79bd9285e/core-1.2.0/res/drawable-hdpi-v4/notification_bg_normal.9.png"
-    },
-    {
         "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/drawable_abc_ic_clear_material.xml.flat",
         "source": "/Users/beowulf/.gradle/caches/transforms-2/files-2.1/0c1936c30a85396091c438d3d714fea2/appcompat-1.1.0/res/drawable/abc_ic_clear_material.xml"
+    },
+    {
+        "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_notification_bg_normal.9.png.flat",
+        "source": "/Users/beowulf/.gradle/caches/transforms-2/files-2.1/7ea99ae170f37e74143993a79bd9285e/core-1.2.0/res/drawable-hdpi-v4/notification_bg_normal.9.png"
     },
     {
         "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/color_mtrl_chip_close_icon_tint.xml.flat",
@@ -112,12 +112,12 @@
         "source": "/Users/beowulf/.gradle/caches/transforms-2/files-2.1/03cbc874fca34cfdd4046bf69923b8d9/material-1.1.0/res/drawable/mtrl_tabs_default_indicator.xml"
     },
     {
-        "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/drawable_ic_menu_slideshow.xml.flat",
-        "source": "/Users/beowulf/Documents/FinanceTracker/app/src/main/res/drawable/ic_menu_slideshow.xml"
-    },
-    {
         "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/layout_activity_main.xml.flat",
         "source": "/Users/beowulf/Documents/FinanceTracker/app/src/main/res/layout/activity_main.xml"
+    },
+    {
+        "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/drawable_ic_menu_slideshow.xml.flat",
+        "source": "/Users/beowulf/Documents/FinanceTracker/app/src/main/res/drawable/ic_menu_slideshow.xml"
     },
     {
         "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/color_mtrl_tabs_icon_color_selector_colored.xml.flat",
@@ -768,6 +768,10 @@
         "source": "/Users/beowulf/.gradle/caches/transforms-2/files-2.1/7ea99ae170f37e74143993a79bd9285e/core-1.2.0/res/drawable-mdpi-v4/notification_bg_low_normal.9.png"
     },
     {
+        "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/layout_fragment_slideshow.xml.flat",
+        "source": "/Users/beowulf/Documents/FinanceTracker/app/src/main/res/layout/fragment_slideshow.xml"
+    },
+    {
         "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_btn_switch_to_on_mtrl_00012.9.png.flat",
         "source": "/Users/beowulf/.gradle/caches/transforms-2/files-2.1/0c1936c30a85396091c438d3d714fea2/appcompat-1.1.0/res/drawable-hdpi-v4/abc_btn_switch_to_on_mtrl_00012.9.png"
     },
@@ -1124,6 +1128,10 @@
         "source": "/Users/beowulf/.gradle/caches/transforms-2/files-2.1/7ea99ae170f37e74143993a79bd9285e/core-1.2.0/res/layout/notification_template_part_time.xml"
     },
     {
+        "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/layout_fragment_gallery.xml.flat",
+        "source": "/Users/beowulf/Documents/FinanceTracker/app/src/main/res/layout/fragment_gallery.xml"
+    },
+    {
         "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/color_mtrl_calendar_selected_range.xml.flat",
         "source": "/Users/beowulf/.gradle/caches/transforms-2/files-2.1/03cbc874fca34cfdd4046bf69923b8d9/material-1.1.0/res/color/mtrl_calendar_selected_range.xml"
     },
@@ -1178,10 +1186,6 @@
     {
         "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_textfield_search_activated_mtrl_alpha.9.png.flat",
         "source": "/Users/beowulf/.gradle/caches/transforms-2/files-2.1/0c1936c30a85396091c438d3d714fea2/appcompat-1.1.0/res/drawable-hdpi-v4/abc_textfield_search_activated_mtrl_alpha.9.png"
-    },
-    {
-        "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/drawable_ic_home.xml.flat",
-        "source": "/Users/beowulf/Documents/FinanceTracker/app/src/main/res/drawable/ic_home.xml"
     },
     {
         "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/layout_design_text_input_end_icon.xml.flat",
@@ -1364,10 +1368,6 @@
         "source": "/Users/beowulf/.gradle/caches/transforms-2/files-2.1/03cbc874fca34cfdd4046bf69923b8d9/material-1.1.0/res/interpolator-v21/mtrl_linear_out_slow_in.xml"
     },
     {
-        "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/drawable_ic_bar_chart.xml.flat",
-        "source": "/Users/beowulf/Documents/FinanceTracker/app/src/main/res/drawable/ic_bar_chart.xml"
-    },
-    {
         "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/layout_abc_alert_dialog_title_material.xml.flat",
         "source": "/Users/beowulf/.gradle/caches/transforms-2/files-2.1/0c1936c30a85396091c438d3d714fea2/appcompat-1.1.0/res/layout/abc_alert_dialog_title_material.xml"
     },
@@ -1484,10 +1484,6 @@
         "source": "/Users/beowulf/.gradle/caches/transforms-2/files-2.1/0c1936c30a85396091c438d3d714fea2/appcompat-1.1.0/res/drawable/abc_list_selector_background_transition_holo_light.xml"
     },
     {
-        "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/layout_fragment_report.xml.flat",
-        "source": "/Users/beowulf/Documents/FinanceTracker/app/src/main/res/layout/fragment_report.xml"
-    },
-    {
         "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/anim_btn_radio_to_off_mtrl_ring_outer_animation.xml.flat",
         "source": "/Users/beowulf/.gradle/caches/transforms-2/files-2.1/0c1936c30a85396091c438d3d714fea2/appcompat-1.1.0/res/anim/btn_radio_to_off_mtrl_ring_outer_animation.xml"
     },
@@ -1558,10 +1554,6 @@
     {
         "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_btn_switch_to_on_mtrl_00012.9.png.flat",
         "source": "/Users/beowulf/.gradle/caches/transforms-2/files-2.1/0c1936c30a85396091c438d3d714fea2/appcompat-1.1.0/res/drawable-xhdpi-v4/abc_btn_switch_to_on_mtrl_00012.9.png"
-    },
-    {
-        "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/drawable_ic_plus.xml.flat",
-        "source": "/Users/beowulf/Documents/FinanceTracker/app/src/main/res/drawable/ic_plus.xml"
     },
     {
         "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_btn_switch_to_on_mtrl_00001.9.png.flat",
@@ -1774,10 +1766,6 @@
     {
         "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/color_mtrl_popupmenu_overlay_color.xml.flat",
         "source": "/Users/beowulf/.gradle/caches/transforms-2/files-2.1/03cbc874fca34cfdd4046bf69923b8d9/material-1.1.0/res/color/mtrl_popupmenu_overlay_color.xml"
-    },
-    {
-        "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/drawable_ic_list.xml.flat",
-        "source": "/Users/beowulf/Documents/FinanceTracker/app/src/main/res/drawable/ic_list.xml"
     },
     {
         "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/menu_activity_main_drawer.xml.flat",
@@ -2390,10 +2378,6 @@
     {
         "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/layout_abc_activity_chooser_view_list_item.xml.flat",
         "source": "/Users/beowulf/.gradle/caches/transforms-2/files-2.1/0c1936c30a85396091c438d3d714fea2/appcompat-1.1.0/res/layout/abc_activity_chooser_view_list_item.xml"
-    },
-    {
-        "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/layout_fragment_transactions.xml.flat",
-        "source": "/Users/beowulf/Documents/FinanceTracker/app/src/main/res/layout/fragment_transactions.xml"
     },
     {
         "merged": "/Users/beowulf/Documents/FinanceTracker/app/build/intermediates/res/merged/debug/anim_btn_checkbox_to_unchecked_icon_null_animation.xml.flat",

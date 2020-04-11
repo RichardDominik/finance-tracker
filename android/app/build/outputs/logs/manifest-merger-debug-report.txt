@@ -17,7 +17,6 @@ MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /Users/beowulf/.gradle/cac
 MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] /Users/beowulf/.gradle/caches/transforms-2/files-2.1/5ced732566e368c062583722e89e05d0/constraintlayout-1.1.3/AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.navigation:navigation-fragment:2.2.1] /Users/beowulf/.gradle/caches/transforms-2/files-2.1/20668e5d71a6ecfe7904fbd855440584/navigation-fragment-2.2.1/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.lifecycle:lifecycle-extensions:2.2.0] /Users/beowulf/.gradle/caches/transforms-2/files-2.1/ce619fc2802bf85fd2a5c6f74bcc6378/lifecycle-extensions-2.2.0/AndroidManifest.xml:17:1-27:12
-MERGED from [com.mikhaellopez:circularimageview:4.2.0] /Users/beowulf/.gradle/caches/transforms-2/files-2.1/6306c7e4ffd614465b4f7512abff99c7/circularimageview-4.2.0/AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0] /Users/beowulf/.gradle/caches/transforms-2/files-2.1/467bc5cee237c56ae2855e27a1d9ac76/lifecycle-viewmodel-ktx-2.2.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.navigation:navigation-common-ktx:2.2.1] /Users/beowulf/.gradle/caches/transforms-2/files-2.1/13bb1a9833a2fbae63136ae0b85f90de/navigation-common-ktx-2.2.1/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.2.0] /Users/beowulf/.gradle/caches/transforms-2/files-2.1/35a1cb419abe663e969f5d6fac591193/lifecycle-livedata-core-ktx-2.2.0/AndroidManifest.xml:17:1-24:12
@@ -64,7 +63,7 @@ INJECTED from /Users/beowulf/Documents/FinanceTracker/app/src/main/AndroidManife
 INJECTED from /Users/beowulf/Documents/FinanceTracker/app/src/main/AndroidManifest.xml:2:1-24:12
 INJECTED from /Users/beowulf/Documents/FinanceTracker/app/src/main/AndroidManifest.xml:2:1-24:12
 	package
-		ADDED from /Users/beowulf/Documents/FinanceTracker/app/src/main/AndroidManifest.xml:3:5-41
+		ADDED from /Users/beowulf/Documents/FinanceTracker/app/src/main/AndroidManifest.xml:3:5-52
 		INJECTED from /Users/beowulf/Documents/FinanceTracker/app/src/main/AndroidManifest.xml
 		INJECTED from /Users/beowulf/Documents/FinanceTracker/app/src/main/AndroidManifest.xml
 	android:versionName
@@ -105,14 +104,14 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /Users/beow
 		ADDED from /Users/beowulf/Documents/FinanceTracker/app/src/main/AndroidManifest.xml:6:9-35
 	android:theme
 		ADDED from /Users/beowulf/Documents/FinanceTracker/app/src/main/AndroidManifest.xml:11:9-40
-activity#com.example.financetracker.MainActivity
+activity#com.extremeprogramming.financetracker.MainActivity
 ADDED from /Users/beowulf/Documents/FinanceTracker/app/src/main/AndroidManifest.xml:12:9-21:20
 	android:label
 		ADDED from /Users/beowulf/Documents/FinanceTracker/app/src/main/AndroidManifest.xml:14:13-45
 	android:theme
 		ADDED from /Users/beowulf/Documents/FinanceTracker/app/src/main/AndroidManifest.xml:15:13-56
 	android:name
-		ADDED from /Users/beowulf/Documents/FinanceTracker/app/src/main/AndroidManifest.xml:13:13-41
+		ADDED from /Users/beowulf/Documents/FinanceTracker/app/src/main/AndroidManifest.xml:13:13-78
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
 ADDED from /Users/beowulf/Documents/FinanceTracker/app/src/main/AndroidManifest.xml:16:13-20:29
 action#android.intent.action.MAIN
@@ -153,8 +152,6 @@ MERGED from [androidx.navigation:navigation-fragment:2.2.1] /Users/beowulf/.grad
 MERGED from [androidx.navigation:navigation-fragment:2.2.1] /Users/beowulf/.gradle/caches/transforms-2/files-2.1/20668e5d71a6ecfe7904fbd855440584/navigation-fragment-2.2.1/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.lifecycle:lifecycle-extensions:2.2.0] /Users/beowulf/.gradle/caches/transforms-2/files-2.1/ce619fc2802bf85fd2a5c6f74bcc6378/lifecycle-extensions-2.2.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.lifecycle:lifecycle-extensions:2.2.0] /Users/beowulf/.gradle/caches/transforms-2/files-2.1/ce619fc2802bf85fd2a5c6f74bcc6378/lifecycle-extensions-2.2.0/AndroidManifest.xml:20:5-22:41
-MERGED from [com.mikhaellopez:circularimageview:4.2.0] /Users/beowulf/.gradle/caches/transforms-2/files-2.1/6306c7e4ffd614465b4f7512abff99c7/circularimageview-4.2.0/AndroidManifest.xml:7:5-9:41
-MERGED from [com.mikhaellopez:circularimageview:4.2.0] /Users/beowulf/.gradle/caches/transforms-2/files-2.1/6306c7e4ffd614465b4f7512abff99c7/circularimageview-4.2.0/AndroidManifest.xml:7:5-9:41
 MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0] /Users/beowulf/.gradle/caches/transforms-2/files-2.1/467bc5cee237c56ae2855e27a1d9ac76/lifecycle-viewmodel-ktx-2.2.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0] /Users/beowulf/.gradle/caches/transforms-2/files-2.1/467bc5cee237c56ae2855e27a1d9ac76/lifecycle-viewmodel-ktx-2.2.0/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.navigation:navigation-common-ktx:2.2.1] /Users/beowulf/.gradle/caches/transforms-2/files-2.1/13bb1a9833a2fbae63136ae0b85f90de/navigation-common-ktx-2.2.1/AndroidManifest.xml:20:5-22:41
