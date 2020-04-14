@@ -1,6 +1,5 @@
 package com.extremeprogramming.financetracker.db.entities
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -11,8 +10,8 @@ data class Category (
 
     val name: String,
 
-    val description: String?,
+    val description: String? = null,
 
-    val budget: Double?
+    val budget: Double? = null
 
 )
