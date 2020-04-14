@@ -15,4 +15,6 @@
     <string name="menu_send">Send</string>
     <string name="menu_reports">Reports</string>
     <string name="menu_transactions">Transactions</string>
+    <string name="balance">Balance</string>
+    <string name="month_balance">Month balance</string>
 </resources>
