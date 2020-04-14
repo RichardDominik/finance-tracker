@@ -9,4 +9,8 @@
     <color name="magenta">#e82e81</color>
     <color name="aquamarine">#4db6ac</color>
     <color name="orange">#fb6d60</color>
+
+    <color name="white">#ffffff</color>
+    <color name="blue500">#4C679A</color>
+    <color name="green500">#69B3AC</color>
 </resources>
