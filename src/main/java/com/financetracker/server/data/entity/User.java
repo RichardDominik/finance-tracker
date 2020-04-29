@@ -5,42 +5,47 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
 
-    private static final long serialVersionUID = -2343243243242432341L;
-
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    public User(@Email @Size(max = 40) String email, @NotBlank @Size(max = 100) @NotNull String password,
+                @NotNull LoginMethodEnum loginMethodEnum) {
+        this.email = email;
+        this.password = password;
+        this.loginMethodEnum = loginMethodEnum;
+        this.userRole = userRole;
+    }
 
     @Id
-    @Column(name = "uid")
-    private String uid;
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "lastName")
-    private String lastName;
-
+    @Email
     @Column(name = "email")
+    @Size(max = 40)
     private String email;
 
-    public void setFirstName(String firstName){
-        this.firstName = firstName;
+    @NotBlank
+    @Column(name = "password")
+    @Size(max = 100)
+    @NotNull
+    private String password;
+
+    @NotNull
+    @Column(name = "login_method_enum")
+    @Enumerated(EnumType.STRING)
+    private LoginMethodEnum loginMethodEnum;
+
+
+    public Long getId() {
+        return id;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -51,20 +56,19 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public long getId() {
-        return id;
+    public String getPassword() {
+        return password;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getUid() {
-        return uid;
+    public LoginMethodEnum getLoginMethodEnum() {
+        return loginMethodEnum;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setLoginMethodEnum(LoginMethodEnum loginMethodEnum) {
+        this.loginMethodEnum = loginMethodEnum;
     }
-
 }
