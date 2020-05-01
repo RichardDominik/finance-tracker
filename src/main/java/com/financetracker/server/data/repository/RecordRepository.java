@@ -13,4 +13,5 @@ import java.util.List;
 public interface RecordRepository extends CrudRepository<Record,String> {
 
     public List<Record> findByUserAndCategory(User user, Category category);
+    public List<Record> findByUid(String uid);
 }

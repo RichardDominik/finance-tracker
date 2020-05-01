@@ -32,4 +32,10 @@ public class CategoryController {
         categoryService.updateCategory(category);
         return new DefaultResponse(null, "OK");
     }
+
+    @DeleteMapping("/category/{uid}")
+    public DefaultResponse destroyCategory(@PathVariable String uid){
+        categoryService.destroyCategory(uid);
+        return new DefaultResponse(null, "OK");
+    }
 }

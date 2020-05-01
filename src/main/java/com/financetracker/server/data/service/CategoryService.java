@@ -50,4 +50,12 @@ public class CategoryService {
             return null;
         }
     }
+
+    public void destroyCategory(String uid){
+        List<Category> categories = categoryRepository.findByUid(uid);
+        if(categories != null && !categories.isEmpty()){
+            Category categoryDB = categories.get(0);
+            categoryRepository.delete(categoryDB);
+        }
+    }
 }

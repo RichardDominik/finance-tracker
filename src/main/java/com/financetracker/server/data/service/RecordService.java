@@ -53,4 +53,13 @@ public class RecordService {
         }
         return recordRepository.findByUserAndCategory(user.get(), category.get());
     }
+
+    public void destroyRecord(String uid){
+        List<Record> records = recordRepository.findByUid(uid);
+
+        if(records != null && !records.isEmpty()){
+            Record recordDB = records.get(0);
+            recordRepository.delete(recordDB);
+        }
+    }
 }

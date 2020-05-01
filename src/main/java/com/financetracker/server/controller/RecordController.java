@@ -26,4 +26,10 @@ public class RecordController {
     public List<Record> getAllRecords(@RequestParam("userId") String userId, @RequestParam("categoryId") String categoryId){
         return recordService.getAllRecordsForCategoryAndUser(userId, categoryId);
     }
+
+    @DeleteMapping("/record/{uid}")
+    public DefaultResponse destroyRecord(@PathVariable String uid){
+        recordService.destroyRecord(uid);
+        return new DefaultResponse(null, "OK");
+    }
 }
