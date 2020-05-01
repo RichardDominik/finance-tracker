@@ -21,10 +21,9 @@ public class CategoryService {
 
     public void addCategoryToUser(Category category, String uid){
         List<User> users = userRepository.findByUid(uid);
-        if(users!=null && !users.isEmpty()){
+        if(users != null && !users.isEmpty()){
             category.setUser(users.get(0));
             categoryRepository.save(category);
-
         } else{
             //todo err message to client
         }
@@ -32,7 +31,7 @@ public class CategoryService {
 
     public void updateCategory(Category category){
         List<Category> categories= categoryRepository.findByUid(category.getUid());
-        if(categories !=null && !categories.isEmpty()){
+        if(categories != null && !categories.isEmpty()){
             Category categoryDB = categories.get(0);
             categoryDB.setBudget(category.getBudget());
             categoryDB.setDescription(category.getDescription());
@@ -44,7 +43,7 @@ public class CategoryService {
 
     public List<Category> getAllCategoriesForUser(String  uid){
         List<User> users = userRepository.findByUid(uid);
-        if(users!= null && !users.isEmpty()){
+        if(users != null && !users.isEmpty()){
             return categoryRepository.findByUser(users.get(0));
         } else{
             //todo

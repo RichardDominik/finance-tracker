@@ -6,6 +6,7 @@ import com.financetracker.server.data.entity.Category;
 import com.financetracker.server.data.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
 
 import java.util.List;
 
@@ -15,18 +16,18 @@ public class CategoryController {
     @Autowired
     CategoryService categoryService;
 
-    @PostMapping("/createCategory")
+    @PostMapping("/category/create")
     public DefaultResponse createCategory(@RequestBody CreateCategoryRequest req){
         categoryService.addCategoryToUser(req.getCategory(), req.getUserId());
         return new DefaultResponse(null, "OK");
     }
 
-    @GetMapping("/userCategories")
+    @GetMapping("/user-categories")
     public List<Category> getCategoriesForUser(@RequestParam("id") String uid){
         return categoryService.getAllCategoriesForUser(uid);
     }
 
-    @PostMapping("/updateCategory")
+    @PostMapping("/category/update")
     public DefaultResponse updateCategory(@RequestBody Category category){
         categoryService.updateCategory(category);
         return new DefaultResponse(null, "OK");

@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "categories")
@@ -15,15 +17,18 @@ public class Category  implements Serializable {
     private long id;
 
     @Id
+    @NotBlank(message = "Uuid field is required")
     @Column(name = "uid")
     private String uid;
 
+    @NotBlank(message = "Name field is required")
     @Column(name = "name")
     private String name;
 
     @Column(name = "description")
     private String description;
 
+    @Min(value=0, message="Budget cannot be negative")
     @Column(name =  "budget")
     private BigDecimal budget;
 
