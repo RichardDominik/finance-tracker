@@ -2,6 +2,8 @@ package com.financetracker.server.data.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "records")
@@ -13,15 +15,19 @@ public class Record implements Serializable {
     private long id;
 
     @Id
+    @NotBlank(message = "Uuid field is required")
     @Column(name = "uid")
     private String uid;
 
+    //TODO add enum validation
+    @NotNull(message = "record_type may not be null")
     @Column(name = "record_type")
     private int recordType;
 
     @Column(name = "description")
     private String description;
 
+    @NotNull(message = "Amount may not be null")
     @Column(name = "amount")
     private BigDecimal amount;
 

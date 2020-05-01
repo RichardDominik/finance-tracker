@@ -17,7 +17,7 @@ public class CategoryController {
     CategoryService categoryService;
 
     @PostMapping("/category/create")
-    public DefaultResponse createCategory(@RequestBody CreateCategoryRequest req){
+    public DefaultResponse createCategory(@Valid @RequestBody CreateCategoryRequest req){
         categoryService.addCategoryToUser(req.getCategory(), req.getUserId());
         return new DefaultResponse(null, "OK");
     }

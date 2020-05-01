@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "categories")
@@ -28,6 +29,7 @@ public class Category  implements Serializable {
     @Column(name = "description")
     private String description;
 
+    @NotNull(message = "Budget may not be null")
     @Min(value=0, message="Budget cannot be negative")
     @Column(name =  "budget")
     private BigDecimal budget;

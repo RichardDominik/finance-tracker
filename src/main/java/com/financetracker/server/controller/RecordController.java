@@ -6,6 +6,7 @@ import com.financetracker.server.data.entity.Record;
 import com.financetracker.server.data.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
 
 import java.util.List;
 
@@ -15,8 +16,8 @@ public class RecordController {
     @Autowired
     RecordService recordService;
 
-    @PostMapping("/createRecord")
-    public DefaultResponse createRecord(@RequestBody CreateRecordRequest request){
+    @PostMapping("/record/create")
+    public DefaultResponse createRecord(@Valid @RequestBody CreateRecordRequest request){
         recordService.createNewRecord(request);
         return new DefaultResponse(null, "OK");
     }
