@@ -9,12 +9,9 @@ public class Record implements Serializable {
 
     private static final long serialVersionUID = -2343243243242732341L;
 
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
-    @Id
-    @Column(name = "uid")
-    private String uid;
 
     @Column(name = "record_type")
     private int recordType;
@@ -26,11 +23,11 @@ public class Record implements Serializable {
     private BigDecimal amount;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", referencedColumnName = "uid")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "category_id", referencedColumnName = "uid")
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
     public int getRecordType() {
@@ -71,14 +68,6 @@ public class Record implements Serializable {
 
     public void setCategory(Category category) {
         this.category = category;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
     }
 
 }
