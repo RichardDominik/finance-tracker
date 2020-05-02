@@ -3,7 +3,6 @@ package com.financetracker.server.data.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 
 @Entity
 @Table(name = "categories")
@@ -11,12 +10,9 @@ public class Category  implements Serializable {
 
     private static final long serialVersionUID = -2343243243242432323L;
 
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
-    @Id
-    @Column(name = "uid")
-    private String uid;
 
     @Column(name = "name")
     private String name;
@@ -28,7 +24,7 @@ public class Category  implements Serializable {
     private BigDecimal budget;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", referencedColumnName = "uid")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     public String getName() {
@@ -70,14 +66,5 @@ public class Category  implements Serializable {
     public void setId(long id) {
         this.id = id;
     }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
 
 }
