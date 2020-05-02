@@ -22,9 +22,9 @@ public class CategoryService {
     @Autowired
     UserService userService;
 
-    public void addCategoryToUser(Category category){
+    public void addCategoryToUser(Category category) {
         User user = userService.loadUserByUsername(userService.getPrincipalUsername());
-        if(user!=null){
+        if(user != null){
             category.setUser(user);
             categoryRepository.save(category);
         } else{
@@ -32,22 +32,22 @@ public class CategoryService {
         }
     }
 
-    public void updateCategory(Category category)throws CategoryException{
+    public void updateCategory(Category category)throws CategoryException {
         List<Category> categories= categoryRepository.findById(category.getId());
-        if(categories !=null && !categories.isEmpty()){
+        if(categories != null && !categories.isEmpty()){
             Category categoryDB = categories.get(0);
             categoryDB.setBudget(category.getBudget());
             categoryDB.setDescription(category.getDescription());
             categoryDB.setName(category.getName());
             categoryRepository.save(categoryDB);
         } else {
-            throw new CategoryException("Kategória neexistuje");
+            throw new CategoryException("Category does not exist");
         }
     }
 
-    public List<Category> getAllCategoriesForUser(){
+    public List<Category> getAllCategoriesForUser() {
         User user = userService.loadUserByUsername(userService.getPrincipalUsername());
-        if(user!= null){
+        if(user != null){
             return categoryRepository.findByUser(user);
         } else{
             //todo

@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 public class CategoryController {
 
-    private static final Logger LOGGER =  LoggerFactory.getLogger(CategoryController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
 
     @Autowired
     CategoryService categoryService;
@@ -33,13 +33,13 @@ public class CategoryController {
     }
 
     @PostMapping("/updateCategory")
-    public ResponseEntity<?> updateCategory(@RequestBody Category category){
+    public ResponseEntity<?> updateCategory(@RequestBody Category category) {
         try{
             categoryService.updateCategory(category);
             return new ResponseEntity<>(HttpStatus.OK);
-        }catch (CategoryException e){
+        } catch (CategoryException e){
             LOGGER.error("Update category failed, error : " + e.getMessage());
         }
-        return new ResponseEntity<>("Nepodarilo sa aktualizovať záznam", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Updating cateogry failed", HttpStatus.BAD_REQUEST);
     }
 }

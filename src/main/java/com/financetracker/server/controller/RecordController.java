@@ -13,30 +13,29 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class RecordController {
-    private static final Logger LOGGER =  LoggerFactory.getLogger(RecordController.class);
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(RecordController.class);
 
     @Autowired
     RecordService recordService;
 
     @PostMapping("/createRecord")
-    public ResponseEntity<?> createRecord(@RequestBody CreateRecordRequest request){
+    public ResponseEntity<?> createRecord(@RequestBody CreateRecordRequest request) {
         try{
             recordService.createNewRecord(request);
             return new ResponseEntity<>(HttpStatus.OK);
-        }catch (CategoryException e){
+        } catch (CategoryException e){
             LOGGER.error("Create records failed, error : " + e.getMessage());
         }
-        return new ResponseEntity<>("Nepodarilo sa vytvoriť záznam",HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Creating record failed", HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/records")
-    public ResponseEntity<?> getAllRecords(@RequestParam("categoryId") long categoryId){
+    public ResponseEntity<?> getAllRecords(@RequestParam("categoryId") long categoryId) {
         try{
             return new ResponseEntity<>(recordService.getAllRecordsForCategoryAndUser(categoryId),HttpStatus.OK);
-        }catch (CategoryException e){
+        } catch (CategoryException e){
             LOGGER.error("Get all records failed, error : " + e.getMessage());
         }
-        return new ResponseEntity<>("Nepodarilo sa získať záznamy",HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Retrieving records failed", HttpStatus.BAD_REQUEST);
     }
 }

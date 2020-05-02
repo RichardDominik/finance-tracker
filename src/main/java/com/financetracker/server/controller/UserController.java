@@ -15,11 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 
-    private static final Logger LOGGER =  LoggerFactory.getLogger(UserController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserService userService;
-
 
     @PostMapping("/sign-up")
     public ResponseEntity<?> signUp(@RequestBody User user) {
@@ -28,7 +27,7 @@ public class UserController {
         } catch (UserException e){
             LOGGER.error("Sign up failed, error : " + e.getMessage());
         }
-        return new ResponseEntity<>("Nepodarilo sa vytvoriť používateľa", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Creating user failed", HttpStatus.BAD_REQUEST);
     }
 
 }

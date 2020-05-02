@@ -25,13 +25,13 @@ public class RecordService {
     @Autowired
     CategoryRepository categoryRepository;
 
-    public void createNewRecord(CreateRecordRequest req){
+    public void createNewRecord(CreateRecordRequest req) {
 
         User user = userService.loadUserByUsername(userService.getPrincipalUsername());
 
         Category category = categoryRepository.findById(req.getCategory().getId()).get(0);
         if(category == null){
-            throw new CategoryException("Kategória neexistuje");
+            throw new CategoryException("Category does not exist");
         }
 
         Record rec = req.getRecord();
@@ -40,12 +40,12 @@ public class RecordService {
         recordRepository.save(rec);
     }
 
-    public List<Record> getAllRecordsForCategoryAndUser(long categoryId)throws CategoryException{
+    public List<Record> getAllRecordsForCategoryAndUser(long categoryId) throws CategoryException {
         User user = userService.loadUserByUsername(userService.getPrincipalUsername());
 
         Category category = categoryRepository.findById(categoryId).get(0);
         if(category == null){
-            throw new CategoryException("Kategória neexistuje");
+            throw new CategoryException("Category does not exist");
         }
         return recordRepository.findByUserAndCategory(user, category);
     }

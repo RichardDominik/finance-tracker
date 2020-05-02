@@ -15,14 +15,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-    private static final Logger LOGGER =  LoggerFactory.getLogger(UserService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public UserRepository userRepository;
 
-    public User loadUserByUsername(String name){
+    public User loadUserByUsername(String name) {
         return this.userRepository.findByUsername(name).orElseThrow(() -> new UsernameNotFoundException("Not found " + name ));
     }
 
@@ -31,15 +31,15 @@ public class UserService {
         try {
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             username = (principal instanceof UserDetails) ? ((UserDetails) principal).getUsername() : principal.toString();
-        }catch (Exception e){
+        } catch (Exception e){
             LOGGER.error("SecurityContextHolder does not found principal, error : " + e.getMessage());
         }
         return username;
     }
 
-    public void registerUser(User user) throws UserException{
+    public void registerUser(User user) throws UserException {
         if(this.userRepository.findByUsername(user.getUsername()).isPresent()){
-            throw new UserException("Užívateľ s daným užívateľským menom už existuje");
+            throw new UserException("User already exists");
         }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
