@@ -32,8 +32,8 @@ public class CategoryService {
         }
     }
 
-    public void updateCategory(Category category)throws CategoryException {
-        List<Category> categories= categoryRepository.findById(category.getId());
+    public void updateCategory(long id, Category category)throws CategoryException {
+        List<Category> categories= categoryRepository.findById(id);
         if(categories != null && !categories.isEmpty()){
             Category categoryDB = categories.get(0);
             categoryDB.setBudget(category.getBudget());
@@ -55,6 +55,16 @@ public class CategoryService {
         }
     }
 
+    public Category getCategory(long id){
+        List<Category> categories = categoryRepository.findById(id);
+
+        if(categories != null && !categories.isEmpty()){
+            return categories.get(0);
+        } else {
+            throw new CategoryException("Category does not exist");
+        }
+    }
+
     public void destroyCategory(long id){
         List<Category> categories = categoryRepository.findById(id);
         if(categories != null && !categories.isEmpty()){
@@ -62,4 +72,5 @@ public class CategoryService {
             categoryRepository.delete(categoryDB);
         }
     }
+
 }

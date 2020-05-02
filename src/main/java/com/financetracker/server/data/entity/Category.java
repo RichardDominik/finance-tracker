@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "categories")
 public class Category  implements Serializable {
 
-    private static final long serialVersionUID = -2343243243242432323L;
+    private static final long serialVersionUID = -2343243243242732341L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,7 +27,7 @@ public class Category  implements Serializable {
 
     @NotNull(message = "Budget may not be null")
     @Min(value=0, message="Budget cannot be negative")
-    @Column(name =  "budget")
+    @Column(name = "budget")
     private BigDecimal budget;
 
     @ManyToOne(fetch = FetchType.EAGER)

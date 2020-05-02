@@ -19,7 +19,7 @@ public class RecordController {
     RecordService recordService;
 
     @PostMapping("/record/create")
-    public ResponseEntity<?> createRecord(@RequestBody CreateRecordRequest request) {
+    public ResponseEntity<?> createRecord(@Valid @RequestBody CreateRecordRequest request) {
         try{
             recordService.createNewRecord(request);
             return new ResponseEntity<>(HttpStatus.OK);

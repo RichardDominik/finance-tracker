@@ -29,7 +29,7 @@ public class RecordService {
 
         User user = userService.loadUserByEmail(userService.getPrincipalEmail());
 
-        Category category = categoryRepository.findById(req.getCategory().getId()).get(0);
+        Category category = categoryRepository.findById(req.getCategoryId()).get(0);
         if(category == null){
             throw new CategoryException("Category does not exist");
         }

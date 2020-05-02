@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 public class CreateRecordRequest implements Serializable {
 
-    private Category category;
+    private long categoryId;
     private Record record;
 
     public Record getRecord() {
@@ -18,11 +18,11 @@ public class CreateRecordRequest implements Serializable {
         this.record = record;
     }
 
-    public Category getCategory() {
-        return category;
+    public long getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategoryId(Category category) {
-        this.category = category;
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
     }
 }

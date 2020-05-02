@@ -15,10 +15,9 @@ public class Record implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    //TODO add enum validation
-    @NotNull(message = "record_type may not be null")
-    @Column(name = "record_type")
-    private int recordType;
+    @NotNull(message = "type may not be null")
+    @Column(name = "type")
+    private String type;
 
     @Column(name = "description")
     private String description;
@@ -35,12 +34,12 @@ public class Record implements Serializable {
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
-    public int getRecordType() {
-        return recordType;
+    public String getRecordType() {
+        return type;
     }
 
-    public void setRecordType(int recordType) {
-        this.recordType = recordType;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getDescription() {

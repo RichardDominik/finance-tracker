@@ -22,8 +22,7 @@ public class CategoryController {
     CategoryService categoryService;
 
     @PostMapping("/category/create")
-    public ResponseEntity<?> createCategory(@RequestBody Category category){
-
+    public ResponseEntity<?> createCategory(@Valid @RequestBody Category category){
         categoryService.addCategoryToUser(category);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -33,10 +32,10 @@ public class CategoryController {
         return categoryService.getAllCategoriesForUser();
     }
 
-    @PostMapping("/category/update")
-    public ResponseEntity<?> updateCategory(@RequestBody Category category) {
-        try{
-            categoryService.updateCategory(category);
+    @PostMapping("/category/{id}")
+    public ResponseEntity<?> updateCategory(@PathVariable long id, @Valid @RequestBody Category category) {
+        try {
+            categoryService.updateCategory(id, category);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (CategoryException e){
             LOGGER.error("Update category failed, error : " + e.getMessage());
@@ -44,9 +43,15 @@ public class CategoryController {
         return new ResponseEntity<>("Updating cateogry failed", HttpStatus.BAD_REQUEST);
     }
 
+    @GetMapping("/category/{id}/show")
+    public Category findOne(@PathVariable long id){
+        return categoryService.getCategory(id);
+    }
+
     @DeleteMapping("/category/{id}")
     public ResponseEntity<?> destroyCategory(@PathVariable long id){
         categoryService.destroyCategory(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }
