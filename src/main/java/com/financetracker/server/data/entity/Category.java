@@ -14,13 +14,9 @@ public class Category  implements Serializable {
 
     private static final long serialVersionUID = -2343243243242432323L;
 
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
-    @Id
-    @NotBlank(message = "Uuid field is required")
-    @Column(name = "uid")
-    private String uid;
 
     @NotBlank(message = "Name field is required")
     @Column(name = "name")
@@ -35,7 +31,7 @@ public class Category  implements Serializable {
     private BigDecimal budget;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", referencedColumnName = "uid")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     public String getName() {
@@ -77,14 +73,5 @@ public class Category  implements Serializable {
     public void setId(long id) {
         this.id = id;
     }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
 
 }

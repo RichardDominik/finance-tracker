@@ -4,6 +4,7 @@ import com.financetracker.server.controller.request.CreateRecordRequest;
 import com.financetracker.server.data.entity.Category;
 import com.financetracker.server.data.entity.Record;
 import com.financetracker.server.data.entity.User;
+import com.financetracker.server.data.exception.CategoryException;
 import com.financetracker.server.data.repository.CategoryRepository;
 import com.financetracker.server.data.repository.RecordRepository;
 import com.financetracker.server.data.repository.UserRepository;
@@ -11,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RecordService {
@@ -21,45 +21,41 @@ public class RecordService {
     @Autowired
     UserRepository userRepository;
     @Autowired
+    UserService userService;
+    @Autowired
     CategoryRepository categoryRepository;
 
-    public void createNewRecord(CreateRecordRequest req){
+    public void createNewRecord(CreateRecordRequest req) {
 
-        Optional<User> user = userRepository.findById(req.getUserId());
-        if(user.isEmpty()){
-            //todo errror response
-        }
+        User user = userService.loadUserByUsername(userService.getPrincipalUsername());
 
-        Optional<Category> category = categoryRepository.findById(req.getCategoryId());
-        if(category.isEmpty()){
-            //todo
+        Category category = categoryRepository.findById(req.getCategory().getId()).get(0);
+        if(category == null){
+            throw new CategoryException("Category does not exist");
         }
 
         Record rec = req.getRecord();
-        rec.setUser(user.get());
-        rec.setCategory(category.get());
+        rec.setUser(user);
+        rec.setCategory(category);
         recordRepository.save(rec);
     }
 
-    public List<Record> getAllRecordsForCategoryAndUser(String userId, String categoryId){
-        Optional<User> user = userRepository.findById(userId);
-        if(user.isEmpty()){
-            //todo errror response
-        }
+    public List<Record> getAllRecordsForCategoryAndUser(long categoryId) throws CategoryException {
+        User user = userService.loadUserByUsername(userService.getPrincipalUsername());
 
-        Optional<Category> category = categoryRepository.findById(categoryId);
-        if(category.isEmpty()){
-            //todo
+        Category category = categoryRepository.findById(categoryId).get(0);
+        if(category == null){
+            throw new CategoryException("Category does not exist");
         }
-        return recordRepository.findByUserAndCategory(user.get(), category.get());
+        return recordRepository.findByUserAndCategory(user, category);
     }
 
-    public void destroyRecord(String uid){
-        List<Record> records = recordRepository.findByUid(uid);
-
-        if(records != null && !records.isEmpty()){
-            Record recordDB = records.get(0);
-            recordRepository.delete(recordDB);
-        }
-    }
+//    public void destroyRecord(String uid){
+//        List<Record> records = recordRepository.findByUid(uid);
+//
+//        if(records != null && !records.isEmpty()){
+//            Record recordDB = records.get(0);
+//            recordRepository.delete(recordDB);
+//        }
+//    }
 }
