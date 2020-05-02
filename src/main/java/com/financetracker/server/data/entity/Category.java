@@ -10,9 +10,9 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "categories")
-public class Category  implements Serializable {
+public class Category implements Serializable {
 
-    private static final long serialVersionUID = -2343243243242732341L;
+    private static final long serialVersionUID = -2343243243242432323L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
