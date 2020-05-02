@@ -1,13 +1,19 @@
 package com.financetracker.server.data.entity;
 
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "records")
+@TypeDef(
+        name = "pgsql_enum",
+        typeClass = PostgreSQLEnumType.class
+)
 public class Record implements Serializable {
 
     private static final long serialVersionUID = -2343243243242732341L;
@@ -17,8 +23,10 @@ public class Record implements Serializable {
     private long id;
 
     @NotNull(message = "type may not be null")
-    @Column(name = "type")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", columnDefinition = "record_type")
+    @Type( type = "pgsql_enum" )
+    private RecordType type;
 
     @Column(name = "description")
     private String description;
@@ -35,11 +43,11 @@ public class Record implements Serializable {
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
-    public String getRecordType() {
+    public RecordType getRecordType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(RecordType type) {
         this.type = type;
     }
 
