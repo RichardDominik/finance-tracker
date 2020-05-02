@@ -1,5 +1,7 @@
 package com.financetracker.server.data.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
@@ -20,66 +22,39 @@ public class Record implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Getter
+    @Setter
     private long id;
 
     @NotNull(message = "type may not be null")
     @Enumerated(EnumType.STRING)
     @Column(name = "type", columnDefinition = "record_type")
     @Type( type = "pgsql_enum" )
+    @Getter
+    @Setter
     private RecordType type;
 
     @Column(name = "description")
+    @Getter
+    @Setter
     private String description;
 
     @NotNull(message = "Amount may not be null")
     @Column(name = "amount")
+    @Getter
+    @Setter
     private BigDecimal amount;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @Getter
+    @Setter
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
+    @Getter
+    @Setter
     private Category category;
 
-    public RecordType getRecordType() {
-        return type;
-    }
-
-    public void setType(RecordType type) {
-        this.type = type;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 }

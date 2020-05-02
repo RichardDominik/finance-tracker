@@ -1,5 +1,8 @@
 package com.financetracker.server.data.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -16,61 +19,31 @@ public class Category implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Setter
+    @Getter
     private long id;
 
     @NotBlank(message = "Name field is required")
     @Column(name = "name")
+    @Setter
+    @Getter
     private String name;
 
     @Column(name = "description")
+    @Setter
+    @Getter
     private String description;
 
     @NotNull(message = "Budget may not be null")
     @Min(value=0, message="Budget cannot be negative")
     @Column(name = "budget")
+    @Setter
+    @Getter
     private BigDecimal budget;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @Setter
+    @Getter
     private User user;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public BigDecimal getBudget() {
-        return budget;
-    }
-
-    public void setBudget(BigDecimal budget) {
-        this.budget = budget;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 }
