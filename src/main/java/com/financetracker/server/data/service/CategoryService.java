@@ -23,7 +23,7 @@ public class CategoryService {
     UserService userService;
 
     public void addCategoryToUser(Category category) {
-        User user = userService.loadUserByUsername(userService.getPrincipalUsername());
+        User user = userService.loadUserByEmail(userService.getPrincipalEmail());
         if(user != null){
             category.setUser(user);
             categoryRepository.save(category);
@@ -46,7 +46,7 @@ public class CategoryService {
     }
 
     public List<Category> getAllCategoriesForUser() {
-        User user = userService.loadUserByUsername(userService.getPrincipalUsername());
+        User user = userService.loadUserByEmail(userService.getPrincipalEmail());
         if(user != null){
             return categoryRepository.findByUser(user);
         } else{
@@ -55,11 +55,11 @@ public class CategoryService {
         }
     }
 
-//    public void destroyCategory(long id){
-//        List<Category> categories = categoryRepository.findById(id);
-//        if(categories != null && !categories.isEmpty()){
-//            Category categoryDB = categories.get(0);
-//            categoryRepository.delete(categoryDB);
-//        }
-//    }
+    public void destroyCategory(long id){
+        List<Category> categories = categoryRepository.findById(id);
+        if(categories != null && !categories.isEmpty()){
+            Category categoryDB = categories.get(0);
+            categoryRepository.delete(categoryDB);
+        }
+    }
 }

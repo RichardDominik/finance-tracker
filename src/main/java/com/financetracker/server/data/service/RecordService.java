@@ -27,7 +27,7 @@ public class RecordService {
 
     public void createNewRecord(CreateRecordRequest req) {
 
-        User user = userService.loadUserByUsername(userService.getPrincipalUsername());
+        User user = userService.loadUserByEmail(userService.getPrincipalEmail());
 
         Category category = categoryRepository.findById(req.getCategory().getId()).get(0);
         if(category == null){
@@ -41,7 +41,7 @@ public class RecordService {
     }
 
     public List<Record> getAllRecordsForCategoryAndUser(long categoryId) throws CategoryException {
-        User user = userService.loadUserByUsername(userService.getPrincipalUsername());
+        User user = userService.loadUserByEmail(userService.getPrincipalEmail());
 
         Category category = categoryRepository.findById(categoryId).get(0);
         if(category == null){
@@ -50,12 +50,12 @@ public class RecordService {
         return recordRepository.findByUserAndCategory(user, category);
     }
 
-//    public void destroyRecord(String uid){
-//        List<Record> records = recordRepository.findByUid(uid);
-//
-//        if(records != null && !records.isEmpty()){
-//            Record recordDB = records.get(0);
-//            recordRepository.delete(recordDB);
-//        }
-//    }
+    public void destroyRecord(long id){
+        List<Record> records = recordRepository.findById(id);
+
+        if(records != null && !records.isEmpty()){
+            Record recordDB = records.get(0);
+            recordRepository.delete(recordDB);
+        }
+    }
 }

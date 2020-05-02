@@ -44,9 +44,9 @@ public class CategoryController {
         return new ResponseEntity<>("Updating cateogry failed", HttpStatus.BAD_REQUEST);
     }
 
-//    @DeleteMapping("/category/{id}")
-//    public DefaultResponse destroyCategory(@PathVariable long id){
-//        categoryService.destroyCategory(id);
-//        return new DefaultResponse(null, "OK");
-//    }
+    @DeleteMapping("/category/{id}")
+    public ResponseEntity<?> destroyCategory(@PathVariable long id){
+        categoryService.destroyCategory(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

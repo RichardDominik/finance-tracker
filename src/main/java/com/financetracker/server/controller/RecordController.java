@@ -39,9 +39,9 @@ public class RecordController {
         return new ResponseEntity<>("Retrieving records failed", HttpStatus.BAD_REQUEST);
     }
 
-    //    @DeleteMapping("/record/{uid}")
-//    public DefaultResponse destroyRecord(@PathVariable String uid){
-//        recordService.destroyRecord(uid);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
+    @DeleteMapping("/record/{id}")
+    public ResponseEntity<?> destroyRecord(@PathVariable long id){
+        recordService.destroyRecord(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

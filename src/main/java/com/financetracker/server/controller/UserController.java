@@ -22,12 +22,12 @@ public class UserController {
 
     @PostMapping("/sign-up")
     public ResponseEntity<?> signUp(@RequestBody User user) {
-        try{
+        try {
             userService.registerUser(user);
         } catch (UserException e){
             LOGGER.error("Sign up failed, error : " + e.getMessage());
         }
-        return new ResponseEntity<>("Creating user failed", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Creating user succesfully", HttpStatus.BAD_REQUEST);
     }
 
 }
