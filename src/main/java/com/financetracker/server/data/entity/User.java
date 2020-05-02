@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Table(name = "users")
 public class User implements Serializable {
 
-    private static final long serialVersionUID = -23432432432424323876L;
+    private static final long serialVersionUID = 6620827911165531787L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
