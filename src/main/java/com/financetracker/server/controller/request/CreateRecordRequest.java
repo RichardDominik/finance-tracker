@@ -2,11 +2,9 @@ package com.financetracker.server.controller.request;
 
 import com.financetracker.server.data.entity.Category;
 import com.financetracker.server.data.entity.Record;
-
 import java.io.Serializable;
 
 public class CreateRecordRequest implements Serializable {
-
     private long categoryId;
     private Record record;
 

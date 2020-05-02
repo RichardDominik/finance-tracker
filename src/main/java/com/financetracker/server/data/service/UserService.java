@@ -1,4 +1,5 @@
 package com.financetracker.server.data.service;
+
 import com.financetracker.server.data.entity.User;
 import com.financetracker.server.data.exception.UserException;
 import com.financetracker.server.data.repository.UserRepository;
@@ -10,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 
 @Service
 public class UserService {

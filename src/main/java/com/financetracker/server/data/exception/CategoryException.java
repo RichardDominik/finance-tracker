@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.CONFLICT)
 public class CategoryException extends RuntimeException {
+
     public CategoryException() {
         super();
     }

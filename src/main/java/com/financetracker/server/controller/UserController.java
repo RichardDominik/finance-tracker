@@ -30,5 +30,4 @@ public class UserController {
         }
         return new ResponseEntity<>("Creating user succesfully", HttpStatus.BAD_REQUEST);
     }
-
 }

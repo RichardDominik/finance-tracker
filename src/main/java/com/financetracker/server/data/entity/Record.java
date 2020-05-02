@@ -1,4 +1,5 @@
 package com.financetracker.server.data.entity;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -73,5 +74,4 @@ public class Record implements Serializable {
     public void setCategory(Category category) {
         this.category = category;
     }
-
 }

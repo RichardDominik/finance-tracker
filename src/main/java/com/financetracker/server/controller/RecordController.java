@@ -13,6 +13,7 @@ import javax.validation.Valid;
 
 @RestController
 public class RecordController {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(RecordController.class);
 
     @Autowired
