@@ -31,7 +31,7 @@ public class CategoryController {
         return categoryService.getAllCategoriesForUser();
     }
 
-    @PostMapping("/category/{id}")
+    @PutMapping("/category/{id}")
     public ResponseEntity<?> updateCategory(@PathVariable long id, @Valid @RequestBody Category category) {
         try {
             categoryService.updateCategory(id, category);
