@@ -25,9 +25,10 @@ public class UserController {
     public ResponseEntity<?> signUp(@Valid @RequestBody User user) {
         try {
             userService.registerUser(user);
+            return new ResponseEntity<>("Creating user successful", HttpStatus.OK);
         } catch (UserException e){
             LOGGER.error("Sign up failed, error : " + e.getMessage());
         }
-        return new ResponseEntity<>("Creating user succesfully", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Creating user failed", HttpStatus.BAD_REQUEST);
     }
 }
