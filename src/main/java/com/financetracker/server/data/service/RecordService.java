@@ -10,7 +10,6 @@ import com.financetracker.server.data.repository.RecordRepository;
 import com.financetracker.server.data.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -27,9 +26,9 @@ public class RecordService {
 
     public void createNewRecord(CreateRecordRequest req) {
 
-        User user = userService.loadUserByUsername(userService.getPrincipalUsername());
+        User user = userService.loadUserByEmail(userService.getPrincipalEmail());
 
-        Category category = categoryRepository.findById(req.getCategory().getId()).get(0);
+        Category category = categoryRepository.findById(req.getCategoryId()).get(0);
         if(category == null){
             throw new CategoryException("Category does not exist");
         }
@@ -41,12 +40,21 @@ public class RecordService {
     }
 
     public List<Record> getAllRecordsForCategoryAndUser(long categoryId) throws CategoryException {
-        User user = userService.loadUserByUsername(userService.getPrincipalUsername());
+        User user = userService.loadUserByEmail(userService.getPrincipalEmail());
 
         Category category = categoryRepository.findById(categoryId).get(0);
         if(category == null){
             throw new CategoryException("Category does not exist");
         }
         return recordRepository.findByUserAndCategory(user, category);
+    }
+
+    public void destroyRecord(long id){
+        List<Record> records = recordRepository.findById(id);
+
+        if(records != null && !records.isEmpty()){
+            Record recordDB = records.get(0);
+            recordRepository.delete(recordDB);
+        }
     }
 }

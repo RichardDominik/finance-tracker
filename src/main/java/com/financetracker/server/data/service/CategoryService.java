@@ -7,7 +7,6 @@ import com.financetracker.server.data.repository.CategoryRepository;
 import com.financetracker.server.data.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -23,7 +22,7 @@ public class CategoryService {
     UserService userService;
 
     public void addCategoryToUser(Category category) {
-        User user = userService.loadUserByUsername(userService.getPrincipalUsername());
+        User user = userService.loadUserByEmail(userService.getPrincipalEmail());
         if(user != null){
             category.setUser(user);
             categoryRepository.save(category);
@@ -32,8 +31,8 @@ public class CategoryService {
         }
     }
 
-    public void updateCategory(Category category)throws CategoryException {
-        List<Category> categories= categoryRepository.findById(category.getId());
+    public void updateCategory(long id, Category category)throws CategoryException {
+        List<Category> categories= categoryRepository.findById(id);
         if(categories != null && !categories.isEmpty()){
             Category categoryDB = categories.get(0);
             categoryDB.setBudget(category.getBudget());
@@ -46,12 +45,30 @@ public class CategoryService {
     }
 
     public List<Category> getAllCategoriesForUser() {
-        User user = userService.loadUserByUsername(userService.getPrincipalUsername());
+        User user = userService.loadUserByEmail(userService.getPrincipalEmail());
         if(user != null){
             return categoryRepository.findByUser(user);
         } else{
             //todo
             return null;
+        }
+    }
+
+    public Category getCategory(long id){
+        List<Category> categories = categoryRepository.findById(id);
+
+        if(categories != null && !categories.isEmpty()){
+            return categories.get(0);
+        } else {
+            throw new CategoryException("Category does not exist");
+        }
+    }
+
+    public void destroyCategory(long id){
+        List<Category> categories = categoryRepository.findById(id);
+        if(categories != null && !categories.isEmpty()){
+            Category categoryDB = categories.get(0);
+            categoryRepository.delete(categoryDB);
         }
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,26 +20,36 @@ public class CategoryController {
     @Autowired
     CategoryService categoryService;
 
-    @PostMapping("/createCategory")
-    public ResponseEntity<?> createCategory(@RequestBody Category category){
-
+    @PostMapping("/category/create")
+    public ResponseEntity<?> createCategory(@Valid @RequestBody Category category){
         categoryService.addCategoryToUser(category);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/userCategories")
+    @GetMapping("/user-categories")
     public List<Category> getCategoriesForUser(){
         return categoryService.getAllCategoriesForUser();
     }
 
-    @PostMapping("/updateCategory")
-    public ResponseEntity<?> updateCategory(@RequestBody Category category) {
-        try{
-            categoryService.updateCategory(category);
+    @PutMapping("/category/{id}")
+    public ResponseEntity<?> updateCategory(@PathVariable long id, @Valid @RequestBody Category category) {
+        try {
+            categoryService.updateCategory(id, category);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (CategoryException e){
             LOGGER.error("Update category failed, error : " + e.getMessage());
         }
         return new ResponseEntity<>("Updating cateogry failed", HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/category/{id}/show")
+    public Category findOne(@PathVariable long id){
+        return categoryService.getCategory(id);
+    }
+
+    @DeleteMapping("/category/{id}")
+    public ResponseEntity<?> destroyCategory(@PathVariable long id){
+        categoryService.destroyCategory(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

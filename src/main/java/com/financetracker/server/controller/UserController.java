@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import javax.validation.Valid;
 
 @RestController
 public class UserController {
@@ -21,13 +22,13 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/sign-up")
-    public ResponseEntity<?> signUp(@RequestBody User user) {
-        try{
+    public ResponseEntity<?> signUp(@Valid @RequestBody User user) {
+        try {
             userService.registerUser(user);
+            return new ResponseEntity<>("Creating user successful", HttpStatus.OK);
         } catch (UserException e){
             LOGGER.error("Sign up failed, error : " + e.getMessage());
         }
         return new ResponseEntity<>("Creating user failed", HttpStatus.BAD_REQUEST);
     }
-
 }

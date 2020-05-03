@@ -9,17 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import javax.validation.Valid;
 
 @RestController
 public class RecordController {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(RecordController.class);
 
     @Autowired
     RecordService recordService;
 
-    @PostMapping("/createRecord")
-    public ResponseEntity<?> createRecord(@RequestBody CreateRecordRequest request) {
+    @PostMapping("/record/create")
+    public ResponseEntity<?> createRecord(@Valid @RequestBody CreateRecordRequest request) {
         try{
             recordService.createNewRecord(request);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -37,5 +38,11 @@ public class RecordController {
             LOGGER.error("Get all records failed, error : " + e.getMessage());
         }
         return new ResponseEntity<>("Retrieving records failed", HttpStatus.BAD_REQUEST);
+    }
+
+    @DeleteMapping("/record/{id}")
+    public ResponseEntity<?> destroyRecord(@PathVariable long id){
+        recordService.destroyRecord(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
