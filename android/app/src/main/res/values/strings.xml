@@ -17,4 +17,20 @@
     <string name="menu_transactions">Transactions</string>
     <string name="balance">Balance</string>
     <string name="month_balance">Month balance</string>
+
+    <string name="email_hint">example@email.com</string>
+    <string name="pass_hint">**********</string>
+    <string name="Sign_In">Sign in</string>
+    <string name="Sign_Up">Sign Up</string>
+    <string name="Sign_In_Fb">Sign in with Facebook</string>
+    <string name="Sign_Up_Fb">Sign up with Facebook</string>
+    <string name="No_Account">Don\'t have an account yet ?</string>
+    <string name="Have_Account">Already have an account ?</string>
+    <string name="Sing_Up_Here">Sign Up here</string>
+    <string name="Name">Name</string>
+    <string name="Surname">Surname</string>
+    <string name="Email">Email</string>
+    <string name="Password">Password</string>
+    <string name="appImageDescription">appImage</string>
+
 </resources>

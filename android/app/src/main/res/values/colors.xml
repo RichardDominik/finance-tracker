@@ -5,12 +5,14 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="yellow">#ebc947</color>
-    <color name="blue">#46689e</color>
+    <color name="blue">#46689E</color>
     <color name="magenta">#e82e81</color>
-    <color name="aquamarine">#4db6ac</color>
+    <color name="aquamarine">#4DB6AC</color>
     <color name="orange">#fb6d60</color>
 
     <color name="white">#ffffff</color>
     <color name="blue500">#4C679A</color>
     <color name="green500">#69B3AC</color>
+
+    <color name="LightGreen">#00CE74</color>
 </resources>
