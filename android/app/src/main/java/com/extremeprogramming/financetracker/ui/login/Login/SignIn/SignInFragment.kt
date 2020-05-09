@@ -35,9 +35,6 @@ class SignInFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_sign_in, container, false)
         val randomTextObj: TextView = root.findViewById(R.id.welcomeMsg)
-
-        Log.d("WAT","CRATE")
-
         val txt : LiveData<String> = signInViewModel.rndText
         txt.observe(this, Observer {
             randomTextObj.text = it.toString()
