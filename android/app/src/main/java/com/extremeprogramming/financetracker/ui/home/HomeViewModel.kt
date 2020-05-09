@@ -10,6 +10,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.threeten.bp.LocalDateTime
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.random.Random
@@ -49,7 +50,7 @@ class HomeViewModel : ViewModel() {
             val records = ArrayList<Record>()
             repeat(5) {
                 delay(100)
-                records.add(Record(it, it.toString(), Random.nextDouble() * 123, null, 1, Calendar.getInstance().time))
+                records.add(Record(it, it.toString(), Random.nextDouble() * 123, null, 1, LocalDateTime.now()))
             }
 
             _recentTransactions.postValue(records)

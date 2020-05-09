@@ -9,5 +9,5 @@ data class CategoryWithRecords (
       parentColumn = "categoryId",
       entityColumn = "recordCategoryId"
     )
-    val records: List<Record>
+    var records: List<Record>
 )

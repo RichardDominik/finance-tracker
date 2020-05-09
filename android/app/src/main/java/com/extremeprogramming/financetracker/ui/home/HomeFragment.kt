@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.extremeprogramming.financetracker.R
 import com.extremeprogramming.financetracker.db.entities.Category
+import com.extremeprogramming.financetracker.ui.Colors
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
@@ -30,16 +31,16 @@ class HomeFragment : Fragment() {
         pieChart = root.findViewById(R.id.pie_char_month_categories)
 
         val balanceTextView = root.findViewById<TextView>(R.id.text_view_balance_value)
-        homeViewModel.balance.observe(this, Observer {
+        homeViewModel.balance.observe(viewLifecycleOwner, Observer {
             balanceTextView.text = it.toString()
         })
 
         val monthBalanceTextView = root.findViewById<TextView>(R.id.text_view_month_balance_value)
-        homeViewModel.monthBalance.observe(this, Observer {
+        homeViewModel.monthBalance.observe(viewLifecycleOwner, Observer {
             monthBalanceTextView.text = it.toString()
         })
 
-        homeViewModel.monthSpending.observe(this, Observer {
+        homeViewModel.monthSpending.observe(viewLifecycleOwner, Observer {
             updatePieChart(it)
         })
 
@@ -53,6 +54,7 @@ class HomeFragment : Fragment() {
         }
 
         val dataSet = PieDataSet(values, "")
+        dataSet.colors = Colors.getColors()
         val data = PieData(dataSet)
         pieChart.data = data
         pieChart.invalidate()

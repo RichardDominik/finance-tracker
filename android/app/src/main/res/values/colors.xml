@@ -9,6 +9,24 @@
     <color name="magenta">#e82e81</color>
     <color name="aquamarine">#4db6ac</color>
     <color name="orange">#fb6d60</color>
+    <color name="red">#DD2146</color>
+    <color name="violet">#A44599</color>
+    <color name="lightgreen">#A2CB44</color>
+    <color name="lightblue">#63C6ED</color>
+    <color name="darkgreen">#0F8F96</color>
+
+    <array name="color_scheme">
+        <item>@color/yellow</item>
+        <item>@color/blue</item>
+        <item>@color/magenta</item>
+        <item>@color/aquamarine</item>
+        <item>@color/orange</item>
+        <item>@color/red</item>
+        <item>@color/violet</item>
+        <item>@color/lightgreen</item>
+        <item>@color/lightblue</item>
+        <item>@color/darkgreen</item>
+    </array>
 
     <color name="white">#ffffff</color>
     <color name="blue500">#4C679A</color>

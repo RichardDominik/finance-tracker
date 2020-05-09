@@ -1,20 +1,51 @@
 package com.extremeprogramming.financetracker.db
 
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
+import android.content.ContentValues
+import android.content.Context
+import android.util.Log
+import androidx.annotation.NonNull
+import androidx.room.*
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.extremeprogramming.financetracker.db.daos.CategoryDao
 import com.extremeprogramming.financetracker.db.daos.RecordDao
 import com.extremeprogramming.financetracker.db.daos.UserDao
 import com.extremeprogramming.financetracker.db.entities.Category
 import com.extremeprogramming.financetracker.db.entities.Record
 import com.extremeprogramming.financetracker.db.entities.User
+import org.threeten.bp.LocalDateTime
+import java.util.*
 
-@Database(entities = arrayOf(User::class, Category::class, Record::class), version = 1)
+@Database(entities = arrayOf(User::class, Category::class, Record::class), version = 2,exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun categoryDao(): CategoryDao
     abstract fun recordDao(): RecordDao
+
+
+    companion object {
+        @Volatile
+        private var INSTANCE: AppDatabase? = null
+
+        fun getDatabase(context: Context): AppDatabase {
+            val tempInstance = INSTANCE
+            if (tempInstance != null) {
+                return tempInstance
+            }
+            synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    AppDatabase::class.java,
+                    "app_database"
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
+                INSTANCE = instance
+                return instance
+            }
+        }
+
+    }
+
 
 }

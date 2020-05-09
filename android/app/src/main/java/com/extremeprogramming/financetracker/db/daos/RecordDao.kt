@@ -1,23 +1,42 @@
 package com.extremeprogramming.financetracker.db.daos
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.extremeprogramming.financetracker.db.entities.Record
 import com.extremeprogramming.financetracker.db.entities.RecordWithCategory
+import org.threeten.bp.LocalDateTime
 import java.util.*
 
 @Dao
 interface RecordDao {
+
+    @Transaction
+    @Query("SELECT * FROM Record")
+    fun getAll() : LiveData<List<RecordWithCategory>>
+
+    @Transaction
+    @Query("SELECT * FROM Record WHERE strftime('%m', date) IN (:month)")
+    fun getAllByMonth(month:String) : LiveData<List<RecordWithCategory>>
+
+    @Transaction
+    @Query("SELECT * FROM Record ORDER BY datetime(date) DESC LIMIT 10")
+    fun getLastTenRecords() : LiveData<List<RecordWithCategory>>
+
+    @Transaction
+    @Query("SELECT * FROM Record WHERE date = :date")
+    fun getAllByDate(date: LocalDateTime) : LiveData<List<RecordWithCategory>>
+
     @Query("DELETE FROM Record")
-    fun deleteAll()
+    suspend fun deleteAll()
 
     @Update
-    fun update(record: Record)
+    suspend fun update(record: Record)
 
     @Delete
-    fun delete(record: Record)
+    suspend fun delete(record: Record)
 
-    @Insert
-    fun insert(record: Record)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(record: Record)
 
 
 }

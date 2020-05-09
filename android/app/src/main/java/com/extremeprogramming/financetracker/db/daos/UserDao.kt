@@ -1,5 +1,6 @@
 package com.extremeprogramming.financetracker.db.daos
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.extremeprogramming.financetracker.db.entities.User
 
@@ -9,18 +10,18 @@ import com.extremeprogramming.financetracker.db.entities.User
 @Dao
 interface UserDao {
     @Query("SELECT * FROM user")
-    fun getOne(): User
+    fun getOne(): LiveData<User>
 
     @Query("DELETE FROM user")
-    fun deleteAll()
+    suspend fun deleteAll()
 
     @Insert
-    fun insert(user: User)
+    suspend fun insert(user: User)
 
     @Delete
-    fun delete(user: User)
+    suspend fun delete(user: User)
 
     @Update
-    fun update(user: User)
+    suspend fun update(user: User)
 
 }

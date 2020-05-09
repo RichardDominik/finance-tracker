@@ -1,32 +1,35 @@
 package com.extremeprogramming.financetracker.db.daos
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.extremeprogramming.financetracker.db.entities.Category
 import com.extremeprogramming.financetracker.db.entities.CategoryWithRecords
+import java.util.*
 
 @Dao
 interface CategoryDao {
     @Query("SELECT * FROM Category")
-    fun getAll() : List<Category>
+    fun getAll() : LiveData<List<Category>>
 
     @Query("SELECT * FROM Category WHERE categoryId = :categoryId")
-    fun findById(categoryId :Int) : Category
+    fun findById(categoryId :Int) : LiveData<Category>
 
     @Transaction
     @Query("SELECT * FROM Category")
-    fun getAllWithRecords() : List<CategoryWithRecords>
+    fun getAllWithRecords() : LiveData<List<CategoryWithRecords>>
 
     @Query("DELETE FROM Category")
-    fun deleteAll()
+    suspend fun deleteAll()
 
-    @Insert
-    fun insert(category : Category)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(category : Category)
 
     @Delete
-    fun delete(category : Category)
+    suspend fun delete(category : Category)
 
     @Update
-    fun update(category : Category)
+    suspend fun update(category : Category)
 
 
 }
