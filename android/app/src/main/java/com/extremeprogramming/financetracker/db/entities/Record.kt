@@ -2,17 +2,10 @@ package com.extremeprogramming.financetracker.db.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
-import com.extremeprogramming.financetracker.db.Converters
 import org.threeten.bp.LocalDateTime
-import org.threeten.bp.OffsetDateTime
-import java.util.*
 
 @Entity
 data class Record (
-    @PrimaryKey
-    val recordId: Int,
-
     val description: String?,
 
     val amount: Double,
@@ -23,4 +16,11 @@ data class Record (
 
     val date: LocalDateTime
 
-    )
+) {
+    @PrimaryKey(autoGenerate = true)
+    var recordId: Int = 0
+
+    override fun toString(): String {
+        return "description = $description, amount = $amount, recordType = $recordType"
+    }
+}
