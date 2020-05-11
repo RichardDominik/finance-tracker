@@ -1,59 +1,25 @@
 package com.extremeprogramming.financetracker.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.extremeprogramming.financetracker.db.entities.Category
-import com.extremeprogramming.financetracker.db.entities.Record
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import org.threeten.bp.LocalDateTime
-import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.random.Random
+import androidx.lifecycle.*
+import com.extremeprogramming.financetracker.db.AppRepository
+import com.extremeprogramming.financetracker.db.entities.CategoryWithRecords
+import com.extremeprogramming.financetracker.db.entities.RecordWithCategory
 
-class HomeViewModel : ViewModel() {
-    private val _balance = MutableLiveData<Double>().apply { value = 123.32 }
-    val balance: LiveData<Double> = _balance
-
-    private val _monthBalance = MutableLiveData<Double>().apply { value = -123.32 }
-    val monthBalance: LiveData<Double> = _monthBalance
-
-    private val _monthSpending = MutableLiveData<List<Category>>()
-    val monthSpending: LiveData<List<Category>> = _monthSpending
-
-    private val _recentTransactions = MutableLiveData<List<Record>>()
-    val recentTransactions: LiveData<List<Record>> = _recentTransactions
-
-    init {
-        loadDummyCategories()
-        loadDummyRecords()
+class HomeViewModel(private val appRepository: AppRepository) : ViewModel() {
+    val balance: LiveData<Double?> = Transformations.map(appRepository.getAllRecords()) { it ->
+        it.sumByDouble { it.amount }
     }
 
-    private fun loadDummyCategories() {
-        viewModelScope.launch {
-            val categories = ArrayList<Category>()
-            repeat((5..12).random()) {
-                delay(100)
-                categories.add(Category(it, it.toString(), budget = Random.nextDouble() * 182))
-            }
-
-            _monthSpending.postValue(categories)
+    val monthBalance: LiveData<Double?> = Transformations.map(appRepository.getThisMonthsCategoriesWithRecords()) { it ->
+        if (it.isEmpty()) {
+            0.0
+        } else {
+            it.sumByDouble { it.records.sumByDouble { it.amount } }
         }
     }
 
-    private fun loadDummyRecords() {
-        viewModelScope.launch {
-            val records = ArrayList<Record>()
-            repeat(5) {
-                delay(100)
-                records.add(Record(it, it.toString(), Random.nextDouble() * 123, null, 1, LocalDateTime.now()))
-            }
+    val monthSpending: LiveData<List<CategoryWithRecords>> = appRepository.getThisMonthsCategoriesWithRecords()
 
-            _recentTransactions.postValue(records)
-        }
-    }
+    val recentTransactions: LiveData<List<RecordWithCategory>> = appRepository.getLastTenRecordsWithCategory()
+
 }
