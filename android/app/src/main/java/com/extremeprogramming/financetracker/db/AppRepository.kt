@@ -1,17 +1,13 @@
 package com.extremeprogramming.financetracker.db
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.room.Room
 import com.extremeprogramming.financetracker.db.daos.CategoryDao
 import com.extremeprogramming.financetracker.db.daos.RecordDao
 import com.extremeprogramming.financetracker.db.daos.UserDao
 import com.extremeprogramming.financetracker.db.entities.*
 import org.threeten.bp.LocalDateTime
 import java.util.*
-import kotlin.collections.HashSet
 
 class AppRepository(private val userDao : UserDao,
                     private val categoryDao : CategoryDao,
@@ -33,20 +29,39 @@ class AppRepository(private val userDao : UserDao,
         return categoryDao.findById(id)
     }
 
-    fun getRecordsByMonth(month : Int) : LiveData<List<RecordWithCategory>> {
+    fun getThisMothsRecordsWithCategory(): LiveData<List<RecordWithCategory>> {
+        val thisMonth = Calendar.getInstance().time.month + 1
+        return getRecordsWithCategoryByMonth(thisMonth)
+    }
+
+    fun getThisMonthsCategoriesWithRecords(): LiveData<List<CategoryWithRecords>> {
+        val thisMonth = Calendar.getInstance().time.month + 1
+        return getCategoriesWithRecordsByMonth(thisMonth)
+    }
+
+    fun getRecordsWithCategoryByMonth(month : Int) : LiveData<List<RecordWithCategory>> {
         val monthString = month.toString().padStart(2, '0')
         return recordDao.getAllByMonth(monthString)
     }
 
-    fun getLastTenRecords() : LiveData<List<RecordWithCategory>> {
+    fun getCategoriesWithRecordsByMonth(month: Int): LiveData<List<CategoryWithRecords>> {
+        val monthString = month.toString().padStart(2, '0')
+        return categoryDao.getAllWithRecords()
+    }
+
+    fun getLastTenRecordsWithCategory() : LiveData<List<RecordWithCategory>> {
         return recordDao.getLastTenRecords()
     }
 
-    fun getRecordsByDate(date : LocalDateTime) : LiveData<List<RecordWithCategory>> {
+    fun getRecordsWithCategoryByDate(date : LocalDateTime) : LiveData<List<RecordWithCategory>> {
         return recordDao.getAllByDate(date)
     }
 
-    fun getAllRecords() : LiveData<List<RecordWithCategory>> {
+    fun getAllRecordsWithCategory() : LiveData<List<RecordWithCategory>> {
+        return recordDao.getAllRecordsWithCategory()
+    }
+
+    fun getAllRecords(): LiveData<List<Record>> {
         return recordDao.getAll()
     }
 

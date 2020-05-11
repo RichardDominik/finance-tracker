@@ -12,11 +12,14 @@ interface RecordDao {
 
     @Transaction
     @Query("SELECT * FROM Record")
-    fun getAll() : LiveData<List<RecordWithCategory>>
+    fun getAllRecordsWithCategory() : LiveData<List<RecordWithCategory>>
+
+    @Query("SELECT * FROM Record")
+    fun getAll() : LiveData<List<Record>>
 
     @Transaction
     @Query("SELECT * FROM Record WHERE strftime('%m', date) IN (:month)")
-    fun getAllByMonth(month:String) : LiveData<List<RecordWithCategory>>
+    fun getAllByMonth(month: String) : LiveData<List<RecordWithCategory>>
 
     @Transaction
     @Query("SELECT * FROM Record ORDER BY datetime(date) DESC LIMIT 10")

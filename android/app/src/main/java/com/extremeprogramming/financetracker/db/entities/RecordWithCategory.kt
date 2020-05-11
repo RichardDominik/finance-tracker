@@ -12,4 +12,8 @@ class RecordWithCategory (
         entityColumn = "categoryId"
     )
     val category: Category
-)
+) {
+    override fun toString(): String {
+        return "record = ($record), category = ($category)"
+    }
+}

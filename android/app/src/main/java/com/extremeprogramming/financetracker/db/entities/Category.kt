@@ -13,5 +13,8 @@ class Category (
     val description: String? = null,
 
     val budget: Double? = null
-
-)
+) {
+    override fun toString(): String {
+        return "name = $name, description = $description, budget = $budget"
+    }
+}
