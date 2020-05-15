@@ -1,10 +1,10 @@
-# backend connection
+# Backend connection
 
 Potrebne programy:
 
-Gradle 6.3
-Java 11
-PgAdmin 4
+Gradle 6.3 <br/>
+Java 11 <br/> 
+PgAdmin 4 <br/>
 
 Postup:
 
