@@ -44,7 +44,7 @@ public class RecordController {
     @GetMapping("/records")
     public ResponseEntity<?> getAllRecords(@RequestParam("categoryId") long categoryId) {
         try{
-            return new ResponseEntity<>(recordService.getAllRecordsForCategoryAndUser(categoryId),HttpStatus.OK);
+            return new ResponseEntity<>(recordService.getAllRecordsForCategoryAndUser(categoryId), HttpStatus.OK);
         } catch (CategoryException e){
             LOGGER.error("Get all records failed, error : " + e.getMessage());
         }
