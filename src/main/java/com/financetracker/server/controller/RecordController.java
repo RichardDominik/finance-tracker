@@ -30,6 +30,17 @@ public class RecordController {
         return new ResponseEntity<>("Creating record failed", HttpStatus.BAD_REQUEST);
     }
 
+    @PutMapping("/record/{id}")
+    public ResponseEntity<?> updateRecord(@PathVariable long id, @Valid @RequestBody CreateRecordRequest request) {
+        try {
+            recordService.updateRecord(id, request);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (CategoryException e){
+            LOGGER.error("Update record failed, error : " + e.getMessage());
+        }
+        return new ResponseEntity<>("Updating record failed", HttpStatus.BAD_REQUEST);
+    }
+
     @GetMapping("/records")
     public ResponseEntity<?> getAllRecords(@RequestParam("categoryId") long categoryId) {
         try{

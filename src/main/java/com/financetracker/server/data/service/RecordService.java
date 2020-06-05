@@ -39,6 +39,28 @@ public class RecordService {
         recordRepository.save(rec);
     }
 
+    public void updateRecord(long id, CreateRecordRequest req) throws CategoryException {
+        User user = userService.loadUserByEmail(userService.getPrincipalEmail());
+        Category category = categoryRepository.findById(req.getCategoryId()).get(0);
+
+        if(category == null){
+            throw new CategoryException("Category does not exist");
+        }
+
+        List<Record> records = recordRepository.findById(id);
+        if(records != null && !records.isEmpty()){
+            Record recordDB = records.get(0);
+            recordDB.setType(req.getRecord().getType());
+            recordDB.setDescription(req.getRecord().getDescription());
+            recordDB.setAmount(req.getRecord().getAmount());
+            recordDB.setUser(user);
+            recordDB.setCategory(category);
+            recordRepository.save(recordDB);
+        } else {
+            throw new CategoryException("Record does not exist");
+        }
+    }
+
     public List<Record> getAllRecordsForCategoryAndUser(long categoryId) throws CategoryException {
         User user = userService.loadUserByEmail(userService.getPrincipalEmail());
 
