@@ -15,6 +15,7 @@ import com.extremeprogramming.financetracker.db.entities.CategoryWithRecords
 import com.extremeprogramming.financetracker.db.entities.Record
 import com.extremeprogramming.financetracker.db.entities.RecordWithCategory
 import com.extremeprogramming.financetracker.ui.Colors
+import com.extremeprogramming.financetracker.ui.tools.InjectorUtils
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.PieChart
@@ -33,7 +34,9 @@ import java.util.function.BiFunction
 
 class ReportsFragment : Fragment() {
 
-    private val reportsViewModel: ReportsViewModel by viewModels()
+    private val reportsViewModel: ReportsViewModel by viewModels() {
+        InjectorUtils.provideReportsViewModelFactory(requireActivity().application)
+    }
 
     //colors
     private val colors: ArrayList<Int> = Colors.getColors()

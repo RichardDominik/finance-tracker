@@ -1,7 +1,6 @@
 package com.extremeprogramming.financetracker.db
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.extremeprogramming.financetracker.backEndConnection.BackendEndPoints
@@ -37,7 +36,7 @@ class AppRepository(private val userDao : UserDao,
                 if (localCategories?.isEmpty() == true || true) {
                     loadCategoriesFromServer()
                 } else {
-                    loadCategoiresFromLocal()
+                    loadCategoriesFromLocal()
                 }
             }
         }
@@ -55,7 +54,7 @@ class AppRepository(private val userDao : UserDao,
         }
     }
 
-    private suspend fun loadCategoiresFromLocal() {
+    private suspend fun loadCategoriesFromLocal() {
         coroutineScope {
             val localCategories = withContext(Dispatchers.IO) { categoryDao.getAll() }.value
             if (localCategories != null) {
