@@ -18,7 +18,9 @@ import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.extremeprogramming.financetracker.db.Converters
 import com.extremeprogramming.financetracker.ui.login.Login.SignIn.SignInFragment
+import org.threeten.bp.LocalDateTime
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var fragment : Fragment
@@ -26,8 +28,12 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fragment = SignInFragment()
-        if (getPreferences(Context.MODE_PRIVATE)?.getString(getString(R.string.SharedPrefDate),"") != ""){// && true == false){
+        val loggedDate = getPreferences(Context.MODE_PRIVATE)?.getString(getString(R.string.SharedPrefDate),"")
+        if (loggedDate != ""){// && true == false){
             loaded = false
+
+            val loggedDateConverted = Converters.toDateTime(loggedDate)
+
             OpenApplication()
         }
         else{

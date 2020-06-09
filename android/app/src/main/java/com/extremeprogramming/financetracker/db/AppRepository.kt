@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.extremeprogramming.financetracker.backEndConnection.BackendEndPoints
+import com.extremeprogramming.financetracker.backEndConnection.JsonToCategory
 import com.extremeprogramming.financetracker.backEndConnection.ServiceBuilder
 import com.extremeprogramming.financetracker.db.daos.CategoryDao
 import com.extremeprogramming.financetracker.db.daos.RecordDao
@@ -13,55 +14,63 @@ import com.extremeprogramming.financetracker.db.entities.*
 import kotlinx.coroutines.*
 import org.threeten.bp.LocalDateTime
 import java.util.*
+import com.extremeprogramming.financetracker.backEndConnection.JsonToRecord
 
-class AppRepository(private val userDao : UserDao,
-                    private val categoryDao : CategoryDao,
-                    private val recordDao : RecordDao) {
+
+class AppRepository(
+    private val userDao: UserDao,
+    private val categoryDao: CategoryDao,
+    private val recordDao: RecordDao
+) {
 
     private val categories = MutableLiveData<List<Category>>()
     private val records = MutableLiveData<List<Record>>()
     private val service = ServiceBuilder.buildService(BackendEndPoints::class.java)
 
-    fun getUser() : LiveData<User> {
+    fun getUser(): LiveData<User> {
         return userDao.getOne()
     }
 
-    fun getCategoriesWithRecords() : LiveData<List<CategoryWithRecords>> {
+    fun getCategoriesWithRecords(): LiveData<List<CategoryWithRecords>> {
         return categoryDao.getAllWithRecords()
     }
 
-    suspend fun getCategories() : LiveData<List<Category>> {
+    suspend fun getCategories(): LiveData<List<Category>> {
+        //val categories =  MutableLiveData<List<Category>>()
         coroutineScope {
             launch {
                 if (categoryDao.getCount() == 0) {
-                    loadCategoriesFromServer()
-                } else {
-                    loadCategoiresFromLocal()
+                    val serverCategories = getCategoriesFromServer()
+                    insertAllCategories(serverCategories)
                 }
-            }
-        }
-        return categories
-    }
 
-    private suspend fun loadCategoriesFromServer() {
-        coroutineScope {
-            launch(Dispatchers.IO) {
-                val response = service.getCategories().execute()
-                if (response.isSuccessful) {
-                    // parse data and update mutableLiveData
-
-                }
-            }
-        }
-    }
-
-    private suspend fun loadCategoiresFromLocal() {
-        coroutineScope {
-            val localCategories = withContext(Dispatchers.IO) { categoryDao.getAll() }.value
-            if (localCategories != null) {
+                val localCategories = getCategoriesFromLocal()
                 categories.postValue(localCategories)
             }
         }
+        return categories
+
+    }
+
+    private suspend fun getCategoriesFromServer(): List<Category>? {
+        return CoroutineScope(Dispatchers.IO).async {
+            val response = service.getCategories().execute()
+            var serverCategories: List<Category>? = null
+
+            if (response.isSuccessful) {
+                serverCategories = JsonToCategory.toCategories(response.body()?.string())
+            }
+            return@async serverCategories
+        }.await()
+    }
+
+    private suspend fun getCategoriesFromLocal(): List<Category>? {
+        return CoroutineScope(Dispatchers.IO).async {
+
+            val localCategories = categoryDao.getAll()
+
+            return@async localCategories?.value
+        }.await()
     }
 
     fun findCategoryById(id: Int): LiveData<Category> {
@@ -78,7 +87,7 @@ class AppRepository(private val userDao : UserDao,
         return getCategoriesWithRecordsByMonth(thisMonth)
     }
 
-    fun getRecordsWithCategoryByMonth(month : Int) : LiveData<List<RecordWithCategory>> {
+    fun getRecordsWithCategoryByMonth(month: Int): LiveData<List<RecordWithCategory>> {
         val monthString = month.toString().padStart(2, '0')
         return recordDao.getAllByMonth(monthString)
     }
@@ -88,81 +97,101 @@ class AppRepository(private val userDao : UserDao,
         return categoryDao.getAllWithRecords()
     }
 
-    fun getLastTenRecordsWithCategory() : LiveData<List<RecordWithCategory>> {
+    fun getLastTenRecordsWithCategory(): LiveData<List<RecordWithCategory>> {
         return recordDao.getLastTenRecords()
     }
 
-    fun getRecordsWithCategoryByDate(date : LocalDateTime) : LiveData<List<RecordWithCategory>> {
+    fun getRecordsWithCategoryByDate(date: LocalDateTime): LiveData<List<RecordWithCategory>> {
         return recordDao.getAllByDate(date)
     }
 
-    fun getAllRecordsWithCategory() : LiveData<List<RecordWithCategory>> {
+    fun getAllRecordsWithCategory(): LiveData<List<RecordWithCategory>> {
         return recordDao.getAllRecordsWithCategory()
     }
 
     fun getAllRecords(): LiveData<List<Record>> {
         GlobalScope.launch {
+
             if (recordDao.getCount() == 0) {
-                loadRecordsFromServer()
-            } else {
-                loadRecordsFromLocal()
+                val serverRecords = getRecordsFromServer()
+                insertAllRecords(serverRecords)
             }
+
+            val localRecords = getRecordsFromLocal()
+            records.postValue(localRecords)
+
         }
         return records
     }
 
-    private suspend fun loadRecordsFromServer() {
-        coroutineScope {
-            launch(Dispatchers.IO) {
-                val response = service.getRecords().execute()
-                if (response.isSuccessful) {
-                    // parse data and update mutableLiveData
-                }
+
+    private suspend fun getRecordsFromServer(): List<Record>? {
+        return CoroutineScope(Dispatchers.IO).async {
+            val response = service.getRecords().execute()
+            var serverRecords: List<Record>? = null
+
+            if (response.isSuccessful) {
+                serverRecords = JsonToRecord.toRecords(response.body()?.string())
             }
+            return@async serverRecords
+        }.await()
+    }
+
+    private suspend fun getRecordsFromLocal(): List<Record>? {
+        return CoroutineScope(Dispatchers.IO).async {
+
+            val localRecords = recordDao.getAll()
+
+            return@async localRecords?.value
+        }.await()
+    }
+
+
+    suspend fun insertAllCategories(categories: List<Category>?) {
+        categories?.forEach {
+            categoryDao.insert(it)
         }
     }
 
-    private suspend fun loadRecordsFromLocal() {
-        coroutineScope {
-            val localRecords = withContext(Dispatchers.IO) { recordDao.getAll() }
-
-            records.postValue(localRecords)
+    suspend fun insertAllRecords(records: List<Record>?) {
+        records?.forEach {
+            recordDao.insert(it)
         }
     }
 
-    suspend fun insert(record : Record) {
+    suspend fun insert(record: Record) {
         recordDao.insert(record)
     }
 
-    suspend fun insert(category : Category) {
+    suspend fun insert(category: Category) {
         categoryDao.insert(category)
     }
 
-    suspend fun insert(user : User) {
+    suspend fun insert(user: User) {
         userDao.insert(user)
     }
 
-    suspend fun delete(user : User) {
+    suspend fun delete(user: User) {
         userDao.delete(user)
     }
 
-    suspend fun delete(category : Category) {
+    suspend fun delete(category: Category) {
         categoryDao.delete(category)
     }
 
-    suspend fun delete(record : Record) {
+    suspend fun delete(record: Record) {
         recordDao.delete(record)
     }
 
-    suspend fun update(category : Category) {
+    suspend fun update(category: Category) {
         categoryDao.update(category)
     }
 
-    suspend fun update(record : Record) {
+    suspend fun update(record: Record) {
         recordDao.update(record)
     }
 
-    suspend fun update(user : User) {
+    suspend fun update(user: User) {
         userDao.update(user)
     }
 
@@ -186,13 +215,12 @@ class AppRepository(private val userDao : UserDao,
                 val recordDao = AppDatabase.getDatabase(context).recordDao()
                 val categoryDao = AppDatabase.getDatabase(context).categoryDao()
 
-                val instance = AppRepository(userDao,categoryDao,recordDao)
+                val instance = AppRepository(userDao, categoryDao, recordDao)
                 INSTANCE = instance
                 return instance
             }
         }
     }
-
 
 
 }

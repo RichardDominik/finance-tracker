@@ -11,7 +11,7 @@ object ServiceBuilder {
             val original = it.request()
 
             val request = original.newBuilder()
-                .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiQGIiLCJleHAiOjE1OTI1NzgwMDN9.V5Cr5QpCT_M-pcX1LXQOeZ3EWncQLp87GPi4XS3yFEGKxA3vWKz6ap4uW8tpDcYPVqxY4fAX5hhYPn_yugv7sw")
+                .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaXNvbTI5MkBnbWFpbC5jb20iLCJleHAiOjE1OTI1ODc3OTd9.Dp15H9hNANPRn2HWn3lRGAvY6LlvK-rPH95-b1sZIJb-kzdlUbfDHkM9uAXIwQNh7O63Ar-0Zr3aHu4reyTjZA")
                 .method(original.method(), original.body())
                 .build();
             it.proceed(request)

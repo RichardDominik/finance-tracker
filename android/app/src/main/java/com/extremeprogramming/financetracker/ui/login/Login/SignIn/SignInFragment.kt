@@ -22,6 +22,7 @@ import com.extremeprogramming.financetracker.backEndConnection.BackendEndPoints
 import com.extremeprogramming.financetracker.backEndConnection.ServiceBuilder
 import com.extremeprogramming.financetracker.ui.login.Login.SignUp.SignUpFragment
 import com.extremeprogramming.financetracker.backEndConnection.User
+import com.extremeprogramming.financetracker.db.Converters
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 import okhttp3.ResponseBody
 import org.threeten.bp.LocalDateTime
@@ -94,7 +95,7 @@ class SignInFragment : Fragment() {
         if (token != null){
             val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
             with (sharedPref.edit()) {
-                putString(getString(R.string.SharedPrefDate), LocalDateTime.now().toString())
+                putString(getString(R.string.SharedPrefDate), Converters.fromDateTime(LocalDateTime.now()))
                 putString(getString(R.string.SharedPrefToken), token)
                 commit()
             }

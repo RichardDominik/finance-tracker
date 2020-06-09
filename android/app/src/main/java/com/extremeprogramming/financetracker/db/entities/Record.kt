@@ -6,20 +6,20 @@ import org.threeten.bp.LocalDateTime
 
 @Entity
 data class Record (
+    @PrimaryKey
+    val recordId: Int,
+
     val description: String?,
 
     val amount: Double,
 
-    val recordType: Int?,
+    val recordType: String?,
 
     val recordCategoryId: Int,
 
     val date: LocalDateTime
 
 ) {
-    @PrimaryKey(autoGenerate = true)
-    var recordId: Int = 0
-
     override fun toString(): String {
         return "description = $description, amount = $amount, recordType = $recordType"
     }

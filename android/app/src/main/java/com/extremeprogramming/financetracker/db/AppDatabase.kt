@@ -14,7 +14,7 @@ import com.extremeprogramming.financetracker.db.entities.Record
 import com.extremeprogramming.financetracker.db.entities.User
 import java.util.*
 
-@Database(entities = arrayOf(User::class, Category::class, Record::class), version = 3,exportSchema = false)
+@Database(entities = arrayOf(User::class, Category::class, Record::class), version = 4,exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
