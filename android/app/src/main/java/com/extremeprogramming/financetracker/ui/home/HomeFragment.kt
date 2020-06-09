@@ -33,7 +33,6 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        Log.d("WAT","HOME")
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
         pieChart = root.findViewById(R.id.pie_char_month_categories)

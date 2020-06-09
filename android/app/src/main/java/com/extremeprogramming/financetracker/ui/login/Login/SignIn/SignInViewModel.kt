@@ -7,7 +7,7 @@ import kotlin.random.Random
 
 class SignInViewModel : ViewModel() {
 
-    val messages = mutableListOf<String>(
+    val messages = mutableListOf(
         "Hi there! Nice to see you again.",
         "Welcome ! We were expecting you ( ͡° ͜ʖ ͡°)",
         "It's a bird! It's a plane! Nevermind, it's just you.",

@@ -1,5 +1,6 @@
 package com.extremeprogramming.financetracker.backEndConnection
 
+import com.extremeprogramming.financetracker.db.entities.Category
 import com.google.gson.JsonObject
 import okhttp3.ResponseBody
 import retrofit2.http.*
@@ -11,4 +12,10 @@ interface BackendEndPoints {
 
     @POST("/sign-up")
     fun SingUp(@Body user: User) : retrofit2.Call<ResponseBody>
+
+    @GET("/user-categories")
+    fun getCategories() : retrofit2.Call<ResponseBody>
+
+    @GET("/records?categoryId=1")
+    fun getRecords() : retrofit2.Call<ResponseBody>
 }

@@ -1,17 +1,26 @@
 package com.extremeprogramming.financetracker.db
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.extremeprogramming.financetracker.backEndConnection.BackendEndPoints
+import com.extremeprogramming.financetracker.backEndConnection.ServiceBuilder
 import com.extremeprogramming.financetracker.db.daos.CategoryDao
 import com.extremeprogramming.financetracker.db.daos.RecordDao
 import com.extremeprogramming.financetracker.db.daos.UserDao
 import com.extremeprogramming.financetracker.db.entities.*
+import kotlinx.coroutines.*
 import org.threeten.bp.LocalDateTime
 import java.util.*
 
 class AppRepository(private val userDao : UserDao,
                     private val categoryDao : CategoryDao,
                     private val recordDao : RecordDao) {
+
+    private val categories = MutableLiveData<List<Category>>()
+    private val records = MutableLiveData<List<Record>>()
+    private val service = ServiceBuilder.buildService(BackendEndPoints::class.java)
 
     fun getUser() : LiveData<User> {
         return userDao.getOne()
@@ -21,8 +30,38 @@ class AppRepository(private val userDao : UserDao,
         return categoryDao.getAllWithRecords()
     }
 
-    fun getCategories() : LiveData<List<Category>> {
-        return categoryDao.getAll()
+    suspend fun getCategories() : LiveData<List<Category>> {
+        coroutineScope {
+            launch {
+                val localCategories = categoryDao.getAll().value
+                if (localCategories?.isEmpty() == true || true) {
+                    loadCategoriesFromServer()
+                } else {
+                    loadCategoiresFromLocal()
+                }
+            }
+        }
+        return categories
+    }
+
+    private suspend fun loadCategoriesFromServer() {
+        coroutineScope {
+            launch(Dispatchers.IO) {
+                val response = service.getCategories().execute()
+                if (response.isSuccessful) {
+                    // parse data and update mutableLiveData
+                }
+            }
+        }
+    }
+
+    private suspend fun loadCategoiresFromLocal() {
+        coroutineScope {
+            val localCategories = withContext(Dispatchers.IO) { categoryDao.getAll() }.value
+            if (localCategories != null) {
+                categories.postValue(localCategories)
+            }
+        }
     }
 
     fun findCategoryById(id: Int): LiveData<Category> {
@@ -62,7 +101,33 @@ class AppRepository(private val userDao : UserDao,
     }
 
     fun getAllRecords(): LiveData<List<Record>> {
-        return recordDao.getAll()
+        GlobalScope.launch {
+            if (recordDao.getCount() == 0) {
+                loadRecordsFromServer()
+            } else {
+                loadRecordsFromLocal()
+            }
+        }
+        return records
+    }
+
+    private suspend fun loadRecordsFromServer() {
+        coroutineScope {
+            launch(Dispatchers.IO) {
+                val response = service.getRecords().execute()
+                if (response.isSuccessful) {
+                    // parse data and update mutableLiveData
+                }
+            }
+        }
+    }
+
+    private suspend fun loadRecordsFromLocal() {
+        coroutineScope {
+            val localRecords = withContext(Dispatchers.IO) { recordDao.getAll() }
+
+            records.postValue(localRecords)
+        }
     }
 
     suspend fun insert(record : Record) {
