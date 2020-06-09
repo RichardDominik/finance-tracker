@@ -55,7 +55,13 @@ class MainActivity : AppCompatActivity() {
         scope.launch {
             Generate.generate(applicationContext)
         }
+        drawerLayout.findViewById<TextView>(R.id.logout).setOnClickListener {
+            //TODO: delete token in shared preferences
 
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = intent.flags or Intent.FLAG_ACTIVITY_NO_HISTORY
+            startActivity(intent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
