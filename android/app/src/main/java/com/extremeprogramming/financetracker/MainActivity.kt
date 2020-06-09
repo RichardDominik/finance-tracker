@@ -1,5 +1,6 @@
 package com.extremeprogramming.financetracker
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -13,12 +14,12 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import android.view.MenuItem
+import android.widget.TextView
+import com.extremeprogramming.financetracker.db.AppRepository
 import com.extremeprogramming.financetracker.db.Generate
 import com.extremeprogramming.financetracker.ui.Colors
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -66,5 +67,14 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_refresh) {
+            CoroutineScope(Dispatchers.IO).launch {
+                AppRepository.getRepository(applicationContext).refreshDataFromServer()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

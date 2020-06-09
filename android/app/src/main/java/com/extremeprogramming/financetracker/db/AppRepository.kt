@@ -201,6 +201,20 @@ class AppRepository(
         recordDao.deleteAll()
     }
 
+    suspend fun refreshDataFromServer() {
+        coroutineScope {
+            val serverCategories = getCategoriesFromServer()
+            val serverRecords = getRecordsFromServer()
+            if (serverCategories == null || serverRecords == null) {
+                return@coroutineScope
+            }
+
+            deleteAll()
+
+
+        }
+    }
+
     companion object {
         @Volatile
         private var INSTANCE: AppRepository? = null
