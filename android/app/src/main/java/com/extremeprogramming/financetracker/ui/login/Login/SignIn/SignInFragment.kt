@@ -1,7 +1,10 @@
 package com.extremeprogramming.financetracker.ui.login.Login.SignIn
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Debug
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +24,7 @@ import com.extremeprogramming.financetracker.ui.login.Login.SignUp.SignUpFragmen
 import com.extremeprogramming.financetracker.backEndConnection.User
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 import okhttp3.ResponseBody
+import org.threeten.bp.LocalDateTime
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,15 +52,8 @@ class SignInFragment : Fragment() {
         return root
     }
 
-    companion object {
-        val Replace = "SouldReplace"
-    }
 
     override fun onSaveInstanceState(outState: Bundle) {
-
-        outState.run {
-            putBoolean(Replace, true)
-        }
         super.onSaveInstanceState(outState)
     }
 
@@ -78,6 +75,7 @@ class SignInFragment : Fragment() {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful){
                     Toast.makeText(activity!!.applicationContext,"Successfully logged in!",Toast.LENGTH_SHORT).show()
+                    SaveUser(response.headers().get("Authorization"))
                     OpenApplication()
                 }
                 else{
@@ -86,11 +84,21 @@ class SignInFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Log.d("LOGIN1",t.message!!)
                 Toast.makeText(activity,"Cannot connect to server!",Toast.LENGTH_SHORT).show()
             }
         }
         )
+    }
+
+    fun SaveUser(token: String?){
+        if (token != null){
+            val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+            with (sharedPref.edit()) {
+                putString(getString(R.string.SharedPrefDate), LocalDateTime.now().toString())
+                putString(getString(R.string.SharedPrefToken), token)
+                commit()
+            }
+        }
     }
 
     fun OpenApplication(){

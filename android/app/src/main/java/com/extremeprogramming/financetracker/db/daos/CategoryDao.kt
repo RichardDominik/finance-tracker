@@ -31,5 +31,7 @@ interface CategoryDao {
     @Update
     suspend fun update(category : Category)
 
+    @Query("select count(*) from Category")
+    fun getCount() : Int
 
 }

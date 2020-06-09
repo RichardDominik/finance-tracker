@@ -33,8 +33,7 @@ class AppRepository(private val userDao : UserDao,
     suspend fun getCategories() : LiveData<List<Category>> {
         coroutineScope {
             launch {
-                val localCategories = categoryDao.getAll().value
-                if (localCategories?.isEmpty() == true || true) {
+                if (categoryDao.getCount() == 0) {
                     loadCategoriesFromServer()
                 } else {
                     loadCategoiresFromLocal()
@@ -50,6 +49,7 @@ class AppRepository(private val userDao : UserDao,
                 val response = service.getCategories().execute()
                 if (response.isSuccessful) {
                     // parse data and update mutableLiveData
+
                 }
             }
         }

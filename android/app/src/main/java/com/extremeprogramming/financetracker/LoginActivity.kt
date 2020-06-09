@@ -1,5 +1,7 @@
 package com.extremeprogramming.financetracker
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -19,21 +21,31 @@ import androidx.fragment.app.FragmentTransaction
 import com.extremeprogramming.financetracker.ui.login.Login.SignIn.SignInFragment
 
 class LoginActivity : AppCompatActivity() {
-
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var fragment : Fragment
+    private var loaded: Boolean = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setContentView(R.layout.login_activity)
-        val fragmentTransaction : FragmentTransaction = supportFragmentManager.beginTransaction()
         fragment = SignInFragment()
-
-        if (savedInstanceState != null){
-            fragment = supportFragmentManager.getFragment(savedInstanceState, fragmentKey)!!
+        if (getPreferences(Context.MODE_PRIVATE)?.getString(getString(R.string.SharedPrefDate),"") != ""){// && true == false){
+            loaded = false
+            OpenApplication()
         }
-        fragmentTransaction.replace(R.id.FragmentContainer,fragment)
-        fragmentTransaction.commit()
+        else{
+            setContentView(R.layout.login_activity)
+            val fragmentTransaction : FragmentTransaction = supportFragmentManager.beginTransaction()
+
+            if (savedInstanceState != null){
+                fragment = supportFragmentManager.getFragment(savedInstanceState, fragmentKey)!!
+            }
+            fragmentTransaction.replace(R.id.FragmentContainer,fragment)
+            fragmentTransaction.commit()
+        }
+    }
+
+    fun OpenApplication(){
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = intent.flags or Intent.FLAG_ACTIVITY_NO_HISTORY
+        this.startActivity(intent)
     }
 
     companion object {
@@ -41,17 +53,12 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        supportFragmentManager.putFragment(outState, fragmentKey,fragment)
+        if (loaded) supportFragmentManager.putFragment(outState, fragmentKey,fragment)
         super.onSaveInstanceState(outState)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
         return true
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment)
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }

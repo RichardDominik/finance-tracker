@@ -28,7 +28,7 @@ class Generate {
 
             val amounts : List<Double> = listOf(20.5,30.0,55.0,65.5,12.0,5.5,75.0,6.5,7.0)
             for ((index,recordAmount) in amounts.withIndex()) {
-                val date : LocalDateTime = LocalDateTime.of(2020,5,index+1,0,0)
+                val date : LocalDateTime = LocalDateTime.of(2020,6,index+1,0,0)
                 val record = Record((65 + index).toChar().toString(), recordAmount,null,(0..4).random(),date)
 
                 repository.insert(record)

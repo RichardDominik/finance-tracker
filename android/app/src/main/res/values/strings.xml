@@ -32,4 +32,6 @@
     <string name="Password">Password</string>
     <string name="appImageDescription">appImage</string>
 
+    <string name="SharedPrefDate">DateSave</string>
+    <string name="SharedPrefToken">TokenSave</string>
 </resources>

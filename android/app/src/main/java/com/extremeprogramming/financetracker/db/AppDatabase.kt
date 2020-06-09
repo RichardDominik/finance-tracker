@@ -12,10 +12,9 @@ import com.extremeprogramming.financetracker.db.daos.UserDao
 import com.extremeprogramming.financetracker.db.entities.Category
 import com.extremeprogramming.financetracker.db.entities.Record
 import com.extremeprogramming.financetracker.db.entities.User
-import org.threeten.bp.LocalDateTime
 import java.util.*
 
-@Database(entities = arrayOf(User::class, Category::class, Record::class), version = 2,exportSchema = false)
+@Database(entities = arrayOf(User::class, Category::class, Record::class), version = 3,exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao

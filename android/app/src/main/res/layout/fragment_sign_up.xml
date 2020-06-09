@@ -111,7 +111,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/rounded_button"
-        android:backgroundTint="@color/design_default_color_primary_dark"
+        android:backgroundTint="@color/blue"
         android:text="@string/Sign_Up_Fb"
         android:textColor="@color/design_default_color_background"
         app:layout_constraintEnd_toEndOf="parent"
