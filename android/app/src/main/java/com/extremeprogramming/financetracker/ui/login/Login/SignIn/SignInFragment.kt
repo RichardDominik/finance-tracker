@@ -92,6 +92,7 @@ class SignInFragment : Fragment() {
     }
 
     fun SaveUser(token: String?){
+        ServiceBuilder.key = token
         if (token != null){
             val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
             with (sharedPref.edit()) {

@@ -28,12 +28,10 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fragment = SignInFragment()
-        val loggedDate = getPreferences(Context.MODE_PRIVATE)?.getString(getString(R.string.SharedPrefDate),"")
-        if (loggedDate != ""){// && true == false){
+        val loggedDate = getPreferences(Context.MODE_PRIVATE)?.getString(getString(R.string.SharedPrefDate),Converters.fromDateTime(LocalDateTime.of(2000,1,1,1,1)))
+        val loggedDateConverted = Converters.toDateTime(loggedDate)
+        if (loggedDate != "" && !LocalDateTime.now().isAfter(loggedDateConverted?.plusDays(10))){// && true == false){
             loaded = false
-
-            val loggedDateConverted = Converters.toDateTime(loggedDate)
-
             OpenApplication()
         }
         else{
