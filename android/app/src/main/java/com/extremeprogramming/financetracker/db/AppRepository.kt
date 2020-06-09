@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.extremeprogramming.financetracker.backEndConnection.BackendEndPoints
 import com.extremeprogramming.financetracker.backEndConnection.JsonToCategory
 import com.extremeprogramming.financetracker.backEndConnection.ServiceBuilder
@@ -113,13 +114,15 @@ class AppRepository(
         GlobalScope.launch {
 
             if (recordDao.getCount() == 0) {
+                val serverCategories = getCategoriesFromServer()
+                categoryDao.deleteAll()
+                insertAllCategories(serverCategories)
                 val serverRecords = getRecordsFromServer()
                 insertAllRecords(serverRecords)
             }
 
             val localRecords = getRecordsFromLocal()
             records.postValue(localRecords)
-
         }
         return records
     }
@@ -208,8 +211,10 @@ class AppRepository(
             }
 
             deleteAll()
-
-
+            insertAllCategories(serverCategories)
+            insertAllRecords(serverRecords)
+            records.postValue(serverRecords)
+            categories.postValue(serverCategories)
         }
     }
 

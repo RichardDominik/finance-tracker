@@ -30,6 +30,6 @@ object JsonToCategory {
         val description = item.getString("description")
         val budget = item.getDouble("budget")
 
-        return  Category(id,name,description,budget)
+        return Category(id,name,description,budget)
     }
 }
