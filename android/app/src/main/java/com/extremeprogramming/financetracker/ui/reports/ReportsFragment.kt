@@ -153,12 +153,22 @@ class ReportsFragment : Fragment() {
     }
 
     private fun updateSpendingsByMonth(recordsWithCategory: List<RecordWithCategory>) {
+        val dateWithRecords = mutableMapOf<LocalDateTime?, Double>()
+        for (entry in recordsWithCategory) {
+            val amount = if (entry.record == null) 0.0 else entry.record.amount
+            dateWithRecords.merge(
+                entry.record?.date,amount
+            ) { t, u -> (t + u) }
+
+        }
+
+
         val values = ArrayList<BarEntry>()
-        for (recordWithCategory in recordsWithCategory) {
+        for ((date,amount) in dateWithRecords) {
             values.add(
                 BarEntry(
-                    recordWithCategory.record?.date?.dayOfMonth?.toFloat() ?: 0f,
-                    recordWithCategory.record?.amount?.toFloat() ?: 0f
+                    date?.dayOfMonth?.toFloat() ?: 0f,
+                    amount.toFloat() ?: 0f
                 )
             )
         }
