@@ -1,7 +1,6 @@
 package com.extremeprogramming.financetracker.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,7 +54,7 @@ class HomeFragment : Fragment() {
             if (it == null) {
                 balanceTextView.text = "--"
             } else {
-                balanceTextView.text = "%.2f".format(it)
+                balanceTextView.text = "%.2f €".format(it)
             }
         })
 
@@ -64,7 +63,7 @@ class HomeFragment : Fragment() {
             if (it == null) {
                 monthBalanceTextView.text = "--"
             } else {
-                monthBalanceTextView.text = "%.2f".format(it)
+                monthBalanceTextView.text = "%.2f €".format(it)
             }
         })
 
@@ -88,10 +87,12 @@ class HomeFragment : Fragment() {
             }
         }
 
-        val dataSet = PieDataSet(values, "")
+        val dataSet = PieDataSet(values, null)
         dataSet.colors = Colors.getColors()
         val data = PieData(dataSet)
         pieChart.data = data
+        pieChart.description.isEnabled = false
+        pieChart.legend.isEnabled = false
         pieChart.invalidate()
     }
 }

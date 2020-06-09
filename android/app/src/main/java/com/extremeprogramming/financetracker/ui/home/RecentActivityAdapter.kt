@@ -16,23 +16,31 @@ class RecentActivityAdapter(var recordsWithCategory: List<RecordWithCategory>):
     class RecordViewHolder(view: View): RecyclerView.ViewHolder(view) {
         private val descriptionTextView: TextView = view.findViewById(R.id.text_view_description)
         private val categoryNameTextView: TextView = view.findViewById(R.id.text_view_category_name)
+        private val topBorderView: View = view.findViewById(R.id.view_border_top)
         private val amountTextView: TextView = view.findViewById(R.id.text_view_amount)
 
-        fun updateRecord(recordWithCategory: RecordWithCategory) {
-            descriptionTextView.text = recordWithCategory.record.description
-            categoryNameTextView.text = recordWithCategory.category.name
-            val amount = recordWithCategory.record.amount
-            if (amount > 0) {
-                amountTextView.setTextColor(Color.parseColor("#00ff00"))
+        fun updateRecord(recordWithCategory: RecordWithCategory, isFirst: Boolean) {
+            descriptionTextView.text = recordWithCategory.record?.description ?: ""
+            categoryNameTextView.text = recordWithCategory.category?.name ?: ""
+            val amount = recordWithCategory.record?.amount ?: 0.0
+
+            if (isFirst) {
+                topBorderView.visibility = View.VISIBLE
             } else {
-                amountTextView.setTextColor(Color.parseColor("#ff0000"))
+                topBorderView.visibility = View.INVISIBLE
             }
-            amountTextView.text = "%.2f €".format(recordWithCategory.record.amount)
+
+            if (amount > 0) {
+                amountTextView.setTextColor(Color.parseColor("#2ecc71"))
+            } else {
+                amountTextView.setTextColor(Color.parseColor("#e74c3c"))
+            }
+            amountTextView.text = "%.2f €".format(amount)
         }
     }
 
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
-        holder.updateRecord(recordsWithCategory[position])
+        holder.updateRecord(recordsWithCategory[position], position == 0)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolder {
