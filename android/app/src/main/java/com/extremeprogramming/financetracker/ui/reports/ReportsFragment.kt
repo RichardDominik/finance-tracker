@@ -127,7 +127,7 @@ class ReportsFragment : Fragment() {
     }
 
     private fun updateMonthSpendingsByCategory(categoriesWithRecords: List<RecordWithCategory>) {
-        val categoryWithRecordsMap = mutableMapOf<Category, MutableList<Record>>()
+        val categoryWithRecordsMap = mutableMapOf<Category?, MutableList<Record?>>()
         for (entry in categoriesWithRecords) {
             categoryWithRecordsMap.merge(
                 entry.category, mutableListOf(entry.record)
@@ -137,8 +137,8 @@ class ReportsFragment : Fragment() {
 
         val values = ArrayList<PieEntry>()
         for ((category,records) in categoryWithRecordsMap) {
-            val recordAmountSum: Double = records.sumByDouble { record -> record.amount }
-            values.add(PieEntry(recordAmountSum.toFloat(), category.name))
+            val recordAmountSum: Double = records.sumByDouble { record -> record?.amount ?: 0.0 }
+            values.add(PieEntry(recordAmountSum.toFloat(), category?.name))
         }
 
         val dataSet = PieDataSet(values, "")
@@ -157,8 +157,8 @@ class ReportsFragment : Fragment() {
         for (recordWithCategory in recordsWithCategory) {
             values.add(
                 BarEntry(
-                    recordWithCategory.record.date.dayOfMonth.toFloat(),
-                    recordWithCategory.record.amount.toFloat()
+                    recordWithCategory.record?.date?.dayOfMonth?.toFloat() ?: 0f,
+                    recordWithCategory.record?.amount?.toFloat() ?: 0f
                 )
             )
         }

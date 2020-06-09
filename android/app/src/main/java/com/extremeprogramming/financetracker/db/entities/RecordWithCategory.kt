@@ -5,13 +5,13 @@ import androidx.room.Relation
 
 class RecordWithCategory (
     @Embedded
-    val record: Record,
+    val record: Record?,
 
     @Relation(
         parentColumn = "recordCategoryId",
         entityColumn = "categoryId"
     )
-    val category: Category
+    val category: Category?
 ) {
     override fun toString(): String {
         return "record = ($record), category = ($category)"

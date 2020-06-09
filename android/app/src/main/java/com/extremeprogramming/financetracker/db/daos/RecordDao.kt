@@ -15,7 +15,7 @@ interface RecordDao {
     fun getAllRecordsWithCategory() : LiveData<List<RecordWithCategory>>
 
     @Query("SELECT * FROM Record")
-    fun getAll() : LiveData<List<Record>>
+    fun getAll() : List<Record>
 
     @Query("select count(*) from Record")
     fun getCount() : Int

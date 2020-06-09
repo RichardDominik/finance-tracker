@@ -137,12 +137,10 @@ class AppRepository(
         }.await()
     }
 
-    private suspend fun getRecordsFromLocal(): List<Record>? {
+    private suspend fun getRecordsFromLocal(): List<Record> {
         return CoroutineScope(Dispatchers.IO).async {
 
-            val localRecords = recordDao.getAll()
-
-            return@async localRecords?.value
+            return@async recordDao.getAll()
         }.await()
     }
 
