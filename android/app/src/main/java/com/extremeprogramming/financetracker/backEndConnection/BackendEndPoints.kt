@@ -16,6 +16,6 @@ interface BackendEndPoints {
     @GET("/user-categories")
     fun getCategories() : retrofit2.Call<ResponseBody>
 
-    @GET("/records?categoryId=1")
+    @GET("/records/all")
     fun getRecords() : retrofit2.Call<ResponseBody>
 }
