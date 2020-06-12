@@ -12,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import javax.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
-
-
 @RestController
 public class UserController {
 
@@ -21,7 +19,6 @@ public class UserController {
     private static final String userCreateSuccessfulMessage = "Creating user successful";
     private static final String userCreateError = "Creating user failed";
     private static final String userSignUpFailedError = "Sign up failed";
-
 
     @Autowired
     private UserService userService;

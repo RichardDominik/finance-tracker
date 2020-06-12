@@ -28,7 +28,6 @@ public class RecordService {
     CategoryRepository categoryRepository;
 
     public void createNewRecord(CreateRecordRequest req) throws CategoryException{
-
         User user = userService.loadUserByEmail(userService.getPrincipalEmail());
         Category category = getCategory(req.getCategoryId());
 
@@ -41,8 +40,8 @@ public class RecordService {
     public void updateRecord(long id, CreateRecordRequest req) throws CategoryException {
         User user = userService.loadUserByEmail(userService.getPrincipalEmail());
         Category category = getCategory(req.getCategoryId());
-
         List<Record> records = recordRepository.findById(id);
+
         if(records != null && !records.isEmpty()){
             Record recordDB = records.get(0);
             recordDB.setType(req.getRecord().getType());
@@ -79,9 +78,11 @@ public class RecordService {
 
     private Category getCategory(long categoryId) throws CategoryException {
         List<Category> categories = categoryRepository.findById(categoryId);
+
         if(categories == null || categories.isEmpty()){
             throw new CategoryException(categoryNotExistError);
         }
+
         return categories.get(0);
     }
 }

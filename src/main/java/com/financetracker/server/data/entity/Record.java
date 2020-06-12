@@ -58,5 +58,4 @@ public class Record implements Serializable {
     @Getter
     @Setter
     private Category category;
-
 }

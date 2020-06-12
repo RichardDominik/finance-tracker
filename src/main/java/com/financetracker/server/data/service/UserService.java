@@ -45,6 +45,7 @@ public class UserService {
         if(this.userRepository.findByEmail(user.getEmail()).isPresent()){
             throw new UserException(userAlreadyExistsError);
         }
+
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
