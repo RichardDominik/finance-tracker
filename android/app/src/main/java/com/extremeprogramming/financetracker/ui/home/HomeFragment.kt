@@ -18,6 +18,7 @@ import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import kotlin.math.absoluteValue
 
 class HomeFragment : Fragment() {
     private val homeViewModel: HomeViewModel by viewModels {
@@ -83,7 +84,9 @@ class HomeFragment : Fragment() {
         val values = ArrayList<PieEntry>()
         for (categoryWithRecord in categoriesWithRecords) {
             if (categoryWithRecord.records.isNotEmpty()) {
-                values.add(PieEntry(categoryWithRecord.records.sumByDouble { it.amount }.toFloat(), categoryWithRecord.category.name))
+                val sum = categoryWithRecord.records.sumByDouble { it.amount }.toFloat()
+                val label = (if (sum > 0) "" else "- ") + categoryWithRecord.category.name
+                values.add(PieEntry(sum.absoluteValue, label))
             }
         }
 
