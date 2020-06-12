@@ -16,9 +16,9 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
-    private static final String userNotFoundError = "Not found";
-    private static final String userAlreadyExistsError = "User already exists";
-    private static final String securityContextHolderError = "SecurityContextHolder does not found principal";
+    private static final String USER_NOT_FOUND_ERROR = "Not found";
+    private static final String USER_ALREADY_EXISTS_ERROR = "User already exists";
+    private static final String SECURITY_CONTEXT_HOLDER_ERROR = "SecurityContextHolder does not found principal";
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -27,7 +27,7 @@ public class UserService {
     public UserRepository userRepository;
 
     public User loadUserByEmail(String email) {
-        return this.userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(userNotFoundError + " " + email ));
+        return this.userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(USER_NOT_FOUND_ERROR + " " + email ));
     }
 
     public String getPrincipalEmail() {
@@ -36,14 +36,14 @@ public class UserService {
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             email = (principal instanceof UserDetails) ? ((UserDetails) principal).getUsername() : principal.toString();
         } catch (Exception e){
-            LOGGER.error(securityContextHolderError + " " + e.getMessage());
+            LOGGER.error(SECURITY_CONTEXT_HOLDER_ERROR + " " + e.getMessage());
         }
         return email;
     }
 
     public void registerUser(User user) throws UserException {
         if(this.userRepository.findByEmail(user.getEmail()).isPresent()){
-            throw new UserException(userAlreadyExistsError);
+            throw new UserException(USER_ALREADY_EXISTS_ERROR);
         }
 
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));

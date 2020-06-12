@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
-    private static final String userCreateSuccessfulMessage = "Creating user successful";
-    private static final String userCreateError = "Creating user failed";
-    private static final String userSignUpFailedError = "Sign up failed";
+    private static final String USER_CREATE_SUCCESSFUL_MESSAGE = "Creating user successful";
+    private static final String USER_CREATE_ERROR = "Creating user failed";
+    private static final String USER_SIGN_UP_FAILED_ERROR = "Sign up failed";
 
     @Autowired
     private UserService userService;
@@ -29,10 +29,10 @@ public class UserController {
     public ResponseEntity<?> signUp(@Valid @RequestBody User user) {
         try {
             userService.registerUser(user);
-            return new ResponseEntity<>(userCreateSuccessfulMessage, HttpStatus.OK);
+            return new ResponseEntity<>(USER_CREATE_SUCCESSFUL_MESSAGE, HttpStatus.OK);
         } catch (UserException e){
-            LOGGER.error(userSignUpFailedError + " " + e.getMessage());
+            LOGGER.error(USER_SIGN_UP_FAILED_ERROR + " " + e.getMessage());
         }
-        return new ResponseEntity<>(userCreateError, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(USER_CREATE_ERROR, HttpStatus.BAD_REQUEST);
     }
 }

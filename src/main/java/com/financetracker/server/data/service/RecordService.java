@@ -15,8 +15,8 @@ import java.util.List;
 @Service
 public class RecordService {
 
-    private static final String categoryNotExistError = "Category does not exist";
-    private static final String recordNotExistError = "Record does not exist";
+    private static final String CATEGORY_NOT_EXIST_ERROR = "Category does not exist";
+    private static final String RECORD_NOT_EXIST_ERROR = "Record does not exist";
 
     @Autowired
     RecordRepository recordRepository;
@@ -51,7 +51,7 @@ public class RecordService {
             recordDB.setCategory(category);
             recordRepository.save(recordDB);
         } else {
-            throw new CategoryException(recordNotExistError);
+            throw new CategoryException(RECORD_NOT_EXIST_ERROR);
         }
     }
 
@@ -80,7 +80,7 @@ public class RecordService {
         List<Category> categories = categoryRepository.findById(categoryId);
 
         if(categories == null || categories.isEmpty()){
-            throw new CategoryException(categoryNotExistError);
+            throw new CategoryException(CATEGORY_NOT_EXIST_ERROR);
         }
 
         return categories.get(0);
