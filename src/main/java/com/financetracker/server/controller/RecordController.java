@@ -15,6 +15,9 @@ import javax.validation.Valid;
 public class RecordController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RecordController.class);
+    private static final String recordCreateError = "Create records failed";
+    private static final String recordUpdateError = "Update records failed";
+    private static final String recordUpdateError = "Update records failed";
 
     @Autowired
     RecordService recordService;
@@ -25,9 +28,9 @@ public class RecordController {
             recordService.createNewRecord(request);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (CategoryException e){
-            LOGGER.error("Create records failed, error : " + e.getMessage());
+            LOGGER.error(recordCreateError + " " + e.getMessage());
         }
-        return new ResponseEntity<>("Creating record failed", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(recordCreateError, HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/record/{id}")
@@ -36,9 +39,9 @@ public class RecordController {
             recordService.updateRecord(id, request);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (CategoryException e){
-            LOGGER.error("Update record failed, error : " + e.getMessage());
+            LOGGER.error(recordUpdateError + " " + e.getMessage());
         }
-        return new ResponseEntity<>("Updating record failed", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(recordUpdateError, HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/records")

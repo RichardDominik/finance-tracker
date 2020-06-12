@@ -16,6 +16,7 @@ import java.util.List;
 public class CategoryController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
+    private static final String updateError = "Update category failed";
 
     @Autowired
     CategoryService categoryService;
@@ -37,9 +38,9 @@ public class CategoryController {
             categoryService.updateCategory(id, category);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (CategoryException e){
-            LOGGER.error("Update category failed, error : " + e.getMessage());
+            LOGGER.error(updateError + " " + e.getMessage());
         }
-        return new ResponseEntity<>("Updating cateogry failed", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(updateError, HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/category/{id}/show")
