@@ -57,7 +57,6 @@ class AppRepository(
         return CoroutineScope(Dispatchers.IO).async {
             val response = service.getCategories().execute()
             var serverCategories: List<Category>? = null
-
             if (response.isSuccessful) {
                 serverCategories = JsonToCategory.toCategories(response.body()?.string())
             }

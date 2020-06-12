@@ -32,15 +32,15 @@ class SignUpFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_sign_up, container, false)
 
         val SignUp : Button = root.findViewById(R.id.SignUpBtn)
-        SignUp.setOnClickListener { SignUp() }
+        SignUp.setOnClickListener { signUp() }
 
         val SingIn : TextView = root.findViewById(R.id.SignIn)
-        SingIn.setOnClickListener { OpenSignInFragment() }
+        SingIn.setOnClickListener { openSignInFragment() }
 
         return root
     }
 
-    fun SignUp(){
+    fun signUp(){
 
         val user = User(
             EmailTextInput.text.toString(),
@@ -59,7 +59,7 @@ class SignUpFragment : Fragment() {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful){
                     Toast.makeText(activity!!.applicationContext,"Successfully signed up. You can login now!", Toast.LENGTH_LONG).show()
-                    OpenSignInFragment()
+                    openSignInFragment()
                 }
                 else{
                     Toast.makeText(activity!!.applicationContext,"Incorrect email or password!",Toast.LENGTH_SHORT).show()
@@ -74,7 +74,7 @@ class SignUpFragment : Fragment() {
         )
     }
 
-    fun OpenSignInFragment(){
+    fun openSignInFragment(){
         val fragmentTransaction = activity!!.supportFragmentManager.beginTransaction()
         val newFragment = SignInFragment()
         fragmentTransaction.replace(R.id.FragmentContainer, newFragment)

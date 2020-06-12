@@ -3,21 +3,11 @@ package com.extremeprogramming.financetracker
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.extremeprogramming.financetracker.backEndConnection.ServiceBuilder
 import com.extremeprogramming.financetracker.db.Converters
 import com.extremeprogramming.financetracker.ui.login.Login.SignIn.SignInFragment
 import org.threeten.bp.LocalDateTime
@@ -32,7 +22,8 @@ class LoginActivity : AppCompatActivity() {
         val loggedDateConverted = Converters.toDateTime(loggedDate)
         if (loggedDate != "" && !LocalDateTime.now().isAfter(loggedDateConverted?.plusDays(10))){// && true == false){
             loaded = false
-            OpenApplication()
+            setKey()
+            openApplication()
         }
         else{
             setContentView(R.layout.login_activity)
@@ -46,7 +37,11 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    fun OpenApplication(){
+    fun setKey(){
+        ServiceBuilder.key = getPreferences(Context.MODE_PRIVATE)?.getString(getString(R.string.SharedPrefToken),"")
+    }
+
+    fun openApplication(){
         val intent = Intent(this, MainActivity::class.java)
         intent.flags = intent.flags or Intent.FLAG_ACTIVITY_NO_HISTORY
         this.startActivity(intent)

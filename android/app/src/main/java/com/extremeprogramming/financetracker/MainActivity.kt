@@ -52,9 +52,6 @@ class MainActivity : AppCompatActivity() {
 
         Colors.init(applicationContext)
 
-//        scope.launch {
-//            Generate.generate(applicationContext)
-//        }
         drawerLayout.findViewById<TextView>(R.id.logout).setOnClickListener {
             //TODO: delete token in shared preferences
 

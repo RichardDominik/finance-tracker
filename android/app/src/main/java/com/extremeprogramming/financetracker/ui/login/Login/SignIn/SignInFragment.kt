@@ -2,10 +2,7 @@ package com.extremeprogramming.financetracker.ui.login.Login.SignIn
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Debug
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,10 +43,10 @@ class SignInFragment : Fragment() {
         })
 
         val SingUp : TextView = root.findViewById(R.id.SignUp)
-        SingUp.setOnClickListener { OpenSignUpFragment() }
+        SingUp.setOnClickListener { openSignUpFragment() }
 
         val SignIn : Button = root.findViewById(R.id.SignInButton)
-        SignIn.setOnClickListener { Login() }
+        SignIn.setOnClickListener { login() }
         return root
     }
 
@@ -58,7 +55,7 @@ class SignInFragment : Fragment() {
         super.onSaveInstanceState(outState)
     }
 
-    fun Login(){
+    fun login(){
 
         val user = User(
             EmailInputText.text.toString(),
@@ -76,8 +73,8 @@ class SignInFragment : Fragment() {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful){
                     Toast.makeText(activity!!.applicationContext,"Successfully logged in!",Toast.LENGTH_SHORT).show()
-                    SaveUser(response.headers().get("Authorization"))
-                    OpenApplication()
+                    saveUser(response.headers().get("Authorization"))
+                    openApplication()
                 }
                 else{
                     Toast.makeText(activity!!.applicationContext,"Incorrect email or password!",Toast.LENGTH_SHORT).show()
@@ -91,7 +88,7 @@ class SignInFragment : Fragment() {
         )
     }
 
-    fun SaveUser(token: String?){
+    fun saveUser(token: String?){
         ServiceBuilder.key = token
         if (token != null){
             val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
@@ -103,13 +100,13 @@ class SignInFragment : Fragment() {
         }
     }
 
-    fun OpenApplication(){
+    fun openApplication(){
         val intent = Intent(activity, MainActivity::class.java)
         intent.flags = intent.flags or Intent.FLAG_ACTIVITY_NO_HISTORY
         activity!!.startActivity(intent)
     }
 
-    fun OpenSignUpFragment(){
+    fun openSignUpFragment(){
         val fragmentTransaction = activity!!.supportFragmentManager.beginTransaction()
         val newFragment = SignUpFragment()
         fragmentTransaction.replace(R.id.FragmentContainer, newFragment)

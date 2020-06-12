@@ -2,6 +2,7 @@ package com.extremeprogramming.financetracker.backEndConnection
 
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import com.extremeprogramming.financetracker.R
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

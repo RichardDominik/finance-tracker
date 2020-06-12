@@ -3,6 +3,7 @@ package com.extremeprogramming.financetracker.ui.reports
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -138,6 +139,7 @@ class ReportsFragment : Fragment() {
         val values = ArrayList<PieEntry>()
         for ((category,records) in categoryWithRecordsMap) {
             val recordAmountSum: Double = records.sumByDouble { record -> record?.amount ?: 0.0 }
+
             values.add(PieEntry(recordAmountSum.toFloat(), category?.name))
         }
 

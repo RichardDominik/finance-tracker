@@ -1,5 +1,6 @@
 package com.extremeprogramming.financetracker.backEndConnection
 
+import android.util.Log
 import com.extremeprogramming.financetracker.db.entities.Category
 import com.extremeprogramming.financetracker.db.entities.Record
 import org.json.JSONArray
