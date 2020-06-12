@@ -17,7 +17,7 @@ public class RecordController {
     private static final Logger LOGGER = LoggerFactory.getLogger(RecordController.class);
     private static final String recordCreateError = "Create records failed";
     private static final String recordUpdateError = "Update records failed";
-    private static final String recordUpdateError = "Update records failed";
+    private static final String recordAllError = "Retrieving records failed";
 
     @Autowired
     RecordService recordService;
@@ -49,9 +49,9 @@ public class RecordController {
         try{
             return new ResponseEntity<>(recordService.getAllRecordsForCategoryAndUser(categoryId), HttpStatus.OK);
         } catch (CategoryException e){
-            LOGGER.error("Get all records for category failed, error : " + e.getMessage());
+            LOGGER.error(recordAllError + " " + e.getMessage());
         }
-        return new ResponseEntity<>("Retrieving records failed", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(recordAllError, HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/records/all")
@@ -59,9 +59,9 @@ public class RecordController {
         try{
             return new ResponseEntity<>(recordService.getAllRecordsForUser(), HttpStatus.OK);
         } catch (CategoryException e){
-            LOGGER.error("Get all records failed, error : " + e.getMessage());
+            LOGGER.error(recordAllError + " " + e.getMessage());
         }
-        return new ResponseEntity<>("Retrieving records failed", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(recordAllError, HttpStatus.BAD_REQUEST);
     }
 
     @DeleteMapping("/record/{id}")

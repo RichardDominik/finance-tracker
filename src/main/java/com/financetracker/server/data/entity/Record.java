@@ -19,6 +19,8 @@ import javax.validation.constraints.NotNull;
 public class Record implements Serializable {
 
     private static final long serialVersionUID = -2343243243242732341L;
+    private static final String typeNotNullValidationMessage = "Type may not be null";
+    private static final String amountNotNullValidationMessage = "Amount may not be null";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,7 +28,7 @@ public class Record implements Serializable {
     @Setter
     private long id;
 
-    @NotNull(message = "type may not be null")
+    @NotNull(message = typeNotNullValidationMessage)
     @Enumerated(EnumType.STRING)
     @Column(name = "type", columnDefinition = "record_type")
     @Type( type = "pgsql_enum" )
@@ -39,7 +41,7 @@ public class Record implements Serializable {
     @Setter
     private String description;
 
-    @NotNull(message = "Amount may not be null")
+    @NotNull(message = amountNotNullValidationMessage)
     @Column(name = "amount")
     @Getter
     @Setter

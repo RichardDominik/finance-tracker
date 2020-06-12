@@ -16,6 +16,9 @@ import javax.validation.constraints.NotNull;
 public class Category implements Serializable {
 
     private static final long serialVersionUID = -2343243243242432323L;
+    private static final String nameValidationMessage = "Name field is required";
+    private static final String bugetNotNullValidationMessage = "Budget may not be null";
+    private static final String bugetNotNegativeValidationMessage = "Budget cannot be negative";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,7 +26,7 @@ public class Category implements Serializable {
     @Getter
     private long id;
 
-    @NotBlank(message = "Name field is required")
+    @NotBlank(message = nameValidationMessage)
     @Column(name = "name")
     @Setter
     @Getter
@@ -34,8 +37,8 @@ public class Category implements Serializable {
     @Getter
     private String description;
 
-    @NotNull(message = "Budget may not be null")
-    @Min(value=0, message="Budget cannot be negative")
+    @NotNull(message = bugetNotNullValidationMessage)
+    @Min(value=0, message=bugetNotNegativeValidationMessage)
     @Column(name = "budget")
     @Setter
     @Getter

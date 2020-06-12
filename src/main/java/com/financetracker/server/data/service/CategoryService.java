@@ -12,6 +12,10 @@ import java.util.List;
 @Service
 public class CategoryService {
 
+    private static final String categoryNotExistError = "Category does not exist";
+    private static final String categoryCreateError = "Create category failed";
+    private static final String categoriesForUserError = "Retrieving categories failed";
+
     @Autowired
     CategoryRepository categoryRepository;
 
@@ -27,7 +31,7 @@ public class CategoryService {
             category.setUser(user);
             categoryRepository.save(category);
         } else{
-            //todo err message to client
+            throw new CategoryException(categoryCreateError);
         }
     }
 
@@ -40,7 +44,7 @@ public class CategoryService {
             categoryDB.setName(category.getName());
             categoryRepository.save(categoryDB);
         } else {
-            throw new CategoryException("Category does not exist");
+            throw new CategoryException(categoryNotExistError);
         }
     }
 
@@ -49,8 +53,7 @@ public class CategoryService {
         if(user != null){
             return categoryRepository.findByUser(user);
         } else{
-            //todo
-            return null;
+            throw new CategoryException(categoriesForUserError);
         }
     }
 
@@ -60,7 +63,7 @@ public class CategoryService {
         if(categories != null && !categories.isEmpty()){
             return categories.get(0);
         } else {
-            throw new CategoryException("Category does not exist");
+            throw new CategoryException(categoryNotExistError);
         }
     }
 

@@ -16,6 +16,10 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
+    private static final String userNotFoundError = "Not found";
+    private static final String userAlreadyExistsError = "User already exists";
+    private static final String securityContextHolderError = "SecurityContextHolder does not found principal";
+
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -23,7 +27,7 @@ public class UserService {
     public UserRepository userRepository;
 
     public User loadUserByEmail(String email) {
-        return this.userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Not found " + email ));
+        return this.userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(userNotFoundError + " " + email ));
     }
 
     public String getPrincipalEmail() {
@@ -32,14 +36,14 @@ public class UserService {
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             email = (principal instanceof UserDetails) ? ((UserDetails) principal).getUsername() : principal.toString();
         } catch (Exception e){
-            LOGGER.error("SecurityContextHolder does not found principal, error : " + e.getMessage());
+            LOGGER.error(securityContextHolderError + " " + e.getMessage());
         }
         return email;
     }
 
     public void registerUser(User user) throws UserException {
         if(this.userRepository.findByEmail(user.getEmail()).isPresent()){
-            throw new UserException("User already exists");
+            throw new UserException(userAlreadyExistsError);
         }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
