@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 public interface RecordRepository extends CrudRepository<Record,String> {
 
-    public List<Record> findByUserAndCategory(User user, Category category);
-    public List<Record> findById(long id);
+    List<Record> findByUser(User user);
+    List<Record> findByUserAndCategory(User user, Category category);
+    List<Record> findById(long id);
 }

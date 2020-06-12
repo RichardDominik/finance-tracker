@@ -42,9 +42,19 @@ public class RecordController {
     }
 
     @GetMapping("/records")
-    public ResponseEntity<?> getAllRecords(@RequestParam("categoryId") long categoryId) {
+    public ResponseEntity<?> getAllRecordsForCategory(@RequestParam("categoryId") long categoryId) {
         try{
             return new ResponseEntity<>(recordService.getAllRecordsForCategoryAndUser(categoryId), HttpStatus.OK);
+        } catch (CategoryException e){
+            LOGGER.error("Get all records for category failed, error : " + e.getMessage());
+        }
+        return new ResponseEntity<>("Retrieving records failed", HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/records/all")
+    public ResponseEntity<?> getAllRecords(){
+        try{
+            return new ResponseEntity<>(recordService.getAllRecordsForUser(), HttpStatus.OK);
         } catch (CategoryException e){
             LOGGER.error("Get all records failed, error : " + e.getMessage());
         }

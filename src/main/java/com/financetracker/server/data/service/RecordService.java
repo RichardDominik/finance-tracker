@@ -24,14 +24,10 @@ public class RecordService {
     @Autowired
     CategoryRepository categoryRepository;
 
-    public void createNewRecord(CreateRecordRequest req) {
+    public void createNewRecord(CreateRecordRequest req) throws CategoryException{
 
         User user = userService.loadUserByEmail(userService.getPrincipalEmail());
-
-        Category category = categoryRepository.findById(req.getCategoryId()).get(0);
-        if(category == null){
-            throw new CategoryException("Category does not exist");
-        }
+        Category category = getCategory(req.getCategoryId());
 
         Record rec = req.getRecord();
         rec.setUser(user);
@@ -41,11 +37,7 @@ public class RecordService {
 
     public void updateRecord(long id, CreateRecordRequest req) throws CategoryException {
         User user = userService.loadUserByEmail(userService.getPrincipalEmail());
-        Category category = categoryRepository.findById(req.getCategoryId()).get(0);
-
-        if(category == null){
-            throw new CategoryException("Category does not exist");
-        }
+        Category category = getCategory(req.getCategoryId());
 
         List<Record> records = recordRepository.findById(id);
         if(records != null && !records.isEmpty()){
@@ -63,12 +55,14 @@ public class RecordService {
 
     public List<Record> getAllRecordsForCategoryAndUser(long categoryId) throws CategoryException {
         User user = userService.loadUserByEmail(userService.getPrincipalEmail());
+        Category category = getCategory(categoryId);
 
-        Category category = categoryRepository.findById(categoryId).get(0);
-        if(category == null){
-            throw new CategoryException("Category does not exist");
-        }
         return recordRepository.findByUserAndCategory(user, category);
+    }
+
+    public List<Record> getAllRecordsForUser() {
+        User user = userService.loadUserByEmail(userService.getPrincipalEmail());
+        return recordRepository.findByUser(user);
     }
 
     public void destroyRecord(long id){
@@ -78,5 +72,13 @@ public class RecordService {
             Record recordDB = records.get(0);
             recordRepository.delete(recordDB);
         }
+    }
+
+    private Category getCategory(long categoryId) throws CategoryException {
+        List<Category> categories = categoryRepository.findById(categoryId);
+        if(categories == null || categories.isEmpty()){
+            throw new CategoryException("Category does not exist");
+        }
+        return categories.get(0);
     }
 }
