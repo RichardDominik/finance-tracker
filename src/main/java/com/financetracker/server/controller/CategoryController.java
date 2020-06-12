@@ -16,7 +16,7 @@ import java.util.List;
 public class CategoryController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
-    private static final String updateCategoryError = "Update category failed";
+    private static final String categoryUpdateError = "Update category failed";
 
     @Autowired
     CategoryService categoryService;

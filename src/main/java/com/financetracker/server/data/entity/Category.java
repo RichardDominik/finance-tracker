@@ -17,8 +17,8 @@ public class Category implements Serializable {
 
     private static final long serialVersionUID = -2343243243242432323L;
     private static final String nameValidationMessage = "Name field is required";
-    private static final String bugetNotNullValidationMessage = "Budget may not be null";
-    private static final String bugetNotNegativeValidationMessage = "Budget cannot be negative";
+    private static final String budgetNotNullValidationMessage = "Budget may not be null";
+    private static final String budgetNotNegativeValidationMessage = "Budget cannot be negative";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,8 +37,8 @@ public class Category implements Serializable {
     @Getter
     private String description;
 
-    @NotNull(message = bugetNotNullValidationMessage)
-    @Min(value=0, message=bugetNotNegativeValidationMessage)
+    @NotNull(message = budgetNotNullValidationMessage)
+    @Min(value=0, message = budgetNotNegativeValidationMessage)
     @Column(name = "budget")
     @Setter
     @Getter
