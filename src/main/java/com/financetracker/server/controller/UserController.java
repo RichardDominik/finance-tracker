@@ -12,12 +12,13 @@ import org.springframework.http.ResponseEntity;
 import javax.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
-
-
 @RestController
 public class UserController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+    private static final String USER_CREATE_SUCCESSFUL_MESSAGE = "Creating user successful";
+    private static final String USER_CREATE_ERROR = "Creating user failed";
+    private static final String USER_SIGN_UP_FAILED_ERROR = "Sign up failed";
 
     @Autowired
     private UserService userService;
@@ -28,10 +29,10 @@ public class UserController {
     public ResponseEntity<?> signUp(@Valid @RequestBody User user) {
         try {
             userService.registerUser(user);
-            return new ResponseEntity<>("Creating user successful", HttpStatus.OK);
+            return new ResponseEntity<>(USER_CREATE_SUCCESSFUL_MESSAGE, HttpStatus.OK);
         } catch (UserException e){
-            LOGGER.error("Sign up failed, error : " + e.getMessage());
+            LOGGER.error(USER_SIGN_UP_FAILED_ERROR + " " + e.getMessage());
         }
-        return new ResponseEntity<>("Creating user failed", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(USER_CREATE_ERROR, HttpStatus.BAD_REQUEST);
     }
 }

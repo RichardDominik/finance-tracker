@@ -15,6 +15,9 @@ import javax.validation.Valid;
 public class RecordController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RecordController.class);
+    private static final String RECORD_CREATE_ERROR = "Create records failed";
+    private static final String RECORD_UPDATE_ERROR = "Update records failed";
+    private static final String RECORD_ALL_ERROR = "Retrieving records failed";
 
     @Autowired
     RecordService recordService;
@@ -25,9 +28,9 @@ public class RecordController {
             recordService.createNewRecord(request);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (CategoryException e){
-            LOGGER.error("Create records failed, error : " + e.getMessage());
+            LOGGER.error(RECORD_CREATE_ERROR + " " + e.getMessage());
         }
-        return new ResponseEntity<>("Creating record failed", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(RECORD_CREATE_ERROR, HttpStatus.BAD_REQUEST);
     }
 
     @PutMapping("/record/{id}")
@@ -36,9 +39,9 @@ public class RecordController {
             recordService.updateRecord(id, request);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (CategoryException e){
-            LOGGER.error("Update record failed, error : " + e.getMessage());
+            LOGGER.error(RECORD_UPDATE_ERROR + " " + e.getMessage());
         }
-        return new ResponseEntity<>("Updating record failed", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(RECORD_UPDATE_ERROR, HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/records")
@@ -46,9 +49,9 @@ public class RecordController {
         try{
             return new ResponseEntity<>(recordService.getAllRecordsForCategoryAndUser(categoryId), HttpStatus.OK);
         } catch (CategoryException e){
-            LOGGER.error("Get all records for category failed, error : " + e.getMessage());
+            LOGGER.error(RECORD_ALL_ERROR + " " + e.getMessage());
         }
-        return new ResponseEntity<>("Retrieving records failed", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(RECORD_ALL_ERROR, HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/records/all")
@@ -56,9 +59,9 @@ public class RecordController {
         try{
             return new ResponseEntity<>(recordService.getAllRecordsForUser(), HttpStatus.OK);
         } catch (CategoryException e){
-            LOGGER.error("Get all records failed, error : " + e.getMessage());
+            LOGGER.error(RECORD_ALL_ERROR + " " + e.getMessage());
         }
-        return new ResponseEntity<>("Retrieving records failed", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(RECORD_ALL_ERROR, HttpStatus.BAD_REQUEST);
     }
 
     @DeleteMapping("/record/{id}")

@@ -12,6 +12,10 @@ import java.util.List;
 @Service
 public class CategoryService {
 
+    private static final String CATEGORY_NOT_EXIST_ERROR = "Category does not exist";
+    private static final String CATEGORY_CREATE_ERROR = "Create category failed";
+    private static final String CATEGORIES_FOR_USER_ERROR = "Retrieving categories failed";
+
     @Autowired
     CategoryRepository categoryRepository;
 
@@ -23,16 +27,18 @@ public class CategoryService {
 
     public void addCategoryToUser(Category category) {
         User user = userService.loadUserByEmail(userService.getPrincipalEmail());
+
         if(user != null){
             category.setUser(user);
             categoryRepository.save(category);
         } else{
-            //todo err message to client
+            throw new CategoryException(CATEGORY_CREATE_ERROR);
         }
     }
 
     public void updateCategory(long id, Category category)throws CategoryException {
         List<Category> categories= categoryRepository.findById(id);
+
         if(categories != null && !categories.isEmpty()){
             Category categoryDB = categories.get(0);
             categoryDB.setBudget(category.getBudget());
@@ -40,17 +46,17 @@ public class CategoryService {
             categoryDB.setName(category.getName());
             categoryRepository.save(categoryDB);
         } else {
-            throw new CategoryException("Category does not exist");
+            throw new CategoryException(CATEGORY_NOT_EXIST_ERROR);
         }
     }
 
     public List<Category> getAllCategoriesForUser() {
         User user = userService.loadUserByEmail(userService.getPrincipalEmail());
+
         if(user != null){
             return categoryRepository.findByUser(user);
         } else{
-            //todo
-            return null;
+            throw new CategoryException(CATEGORIES_FOR_USER_ERROR);
         }
     }
 
@@ -60,12 +66,13 @@ public class CategoryService {
         if(categories != null && !categories.isEmpty()){
             return categories.get(0);
         } else {
-            throw new CategoryException("Category does not exist");
+            throw new CategoryException(CATEGORY_NOT_EXIST_ERROR);
         }
     }
 
     public void destroyCategory(long id){
         List<Category> categories = categoryRepository.findById(id);
+
         if(categories != null && !categories.isEmpty()){
             Category categoryDB = categories.get(0);
             categoryRepository.delete(categoryDB);

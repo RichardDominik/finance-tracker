@@ -21,9 +21,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         com.financetracker.server.data.entity.User applicationUser = applicationUserRepository.findByEmail(email).get();
+
         if (applicationUser == null) {
             throw new UsernameNotFoundException(email);
         }
+
         return new User(applicationUser.getEmail(), applicationUser.getPassword(), emptyList());
     }
 }

@@ -5,6 +5,7 @@ import com.financetracker.server.data.entity.Record;
 import java.io.Serializable;
 
 public class CreateRecordRequest implements Serializable {
+
     private long categoryId;
     private Record record;
 

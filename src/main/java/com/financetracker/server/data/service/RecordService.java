@@ -15,6 +15,9 @@ import java.util.List;
 @Service
 public class RecordService {
 
+    private static final String CATEGORY_NOT_EXIST_ERROR = "Category does not exist";
+    private static final String RECORD_NOT_EXIST_ERROR = "Record does not exist";
+
     @Autowired
     RecordRepository recordRepository;
     @Autowired
@@ -25,7 +28,6 @@ public class RecordService {
     CategoryRepository categoryRepository;
 
     public void createNewRecord(CreateRecordRequest req) throws CategoryException{
-
         User user = userService.loadUserByEmail(userService.getPrincipalEmail());
         Category category = getCategory(req.getCategoryId());
 
@@ -38,8 +40,8 @@ public class RecordService {
     public void updateRecord(long id, CreateRecordRequest req) throws CategoryException {
         User user = userService.loadUserByEmail(userService.getPrincipalEmail());
         Category category = getCategory(req.getCategoryId());
-
         List<Record> records = recordRepository.findById(id);
+
         if(records != null && !records.isEmpty()){
             Record recordDB = records.get(0);
             recordDB.setType(req.getRecord().getType());
@@ -49,7 +51,7 @@ public class RecordService {
             recordDB.setCategory(category);
             recordRepository.save(recordDB);
         } else {
-            throw new CategoryException("Record does not exist");
+            throw new CategoryException(RECORD_NOT_EXIST_ERROR);
         }
     }
 
@@ -76,9 +78,11 @@ public class RecordService {
 
     private Category getCategory(long categoryId) throws CategoryException {
         List<Category> categories = categoryRepository.findById(categoryId);
+
         if(categories == null || categories.isEmpty()){
-            throw new CategoryException("Category does not exist");
+            throw new CategoryException(CATEGORY_NOT_EXIST_ERROR);
         }
+
         return categories.get(0);
     }
 }
