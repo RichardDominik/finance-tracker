@@ -14,8 +14,4 @@ public interface UserRepository extends JpaRepository<User, String> {
     List<User> findById(long id);
     List<User> findAll();
     Optional<User> findByEmail(String email);
-
-    //TODO
-    @Query(nativeQuery = true, value = "SELECT * FROM users")
-    List<User> getStatistics();
 }

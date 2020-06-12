@@ -34,14 +34,4 @@ public class UserController {
         }
         return new ResponseEntity<>("Creating user failed", HttpStatus.BAD_REQUEST);
     }
-
-    @GetMapping("/statistics")
-    public ResponseEntity<?> getStatistics() {
-        try {
-            return new ResponseEntity<>(userRepository.getStatistics(), HttpStatus.OK);
-        } catch (UserException e){
-            LOGGER.error("Statistics failed, error : " + e.getMessage());
-        }
-        return new ResponseEntity<>("Statistics failed", HttpStatus.BAD_REQUEST);
-    }
 }
