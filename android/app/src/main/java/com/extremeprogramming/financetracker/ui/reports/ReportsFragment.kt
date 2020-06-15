@@ -30,7 +30,10 @@ import com.github.mikephil.charting.interfaces.datasets.IDataSet
 import com.github.mikephil.charting.utils.ColorTemplate
 import org.threeten.bp.LocalDateTime
 import java.math.BigDecimal
+import java.util.*
 import java.util.function.BiFunction
+import kotlin.collections.ArrayList
+import kotlin.math.absoluteValue
 
 
 class ReportsFragment : Fragment() {
@@ -107,6 +110,7 @@ class ReportsFragment : Fragment() {
         spendingsByMonthChart.setDrawBarShadow(false)
 
 
+
         val xAxis = spendingsByMonthChart.xAxis
         xAxis.position = XAxisPosition.BOTTOM
         xAxis.typeface = Typeface.SANS_SERIF
@@ -123,30 +127,25 @@ class ReportsFragment : Fragment() {
             axis.setPosition(YAxisLabelPosition.OUTSIDE_CHART)
             axis.spaceTop = 15f
             axis.axisMinimum = 0f
+            axis.setStartAtZero(false)
         }
 
     }
 
-    private fun updateMonthSpendingsByCategory(categoriesWithRecords: List<RecordWithCategory>) {
-        val categoryWithRecordsMap = mutableMapOf<Category?, MutableList<Record?>>()
-        for (entry in categoriesWithRecords) {
-            categoryWithRecordsMap.merge(
-                entry.category, mutableListOf(entry.record)
-            ) { t, u -> (t + u).toMutableList() }
-
-        }
-
+    private fun updateMonthSpendingsByCategory(categoriesWithRecords: List<CategoryWithRecords>) {
         val values = ArrayList<PieEntry>()
-        for ((category,records) in categoryWithRecordsMap) {
-            val recordAmountSum: Double = records.sumByDouble { record -> record?.amount ?: 0.0 }
-
-            values.add(PieEntry(recordAmountSum.toFloat(), category?.name))
+        for (categoryWithRecord in categoriesWithRecords) {
+            if (categoryWithRecord.records.isNotEmpty()) {
+                val sum = categoryWithRecord.records.sumByDouble { it.amount }.toFloat()
+                val label = (if (sum > 0) "" else "- ") + categoryWithRecord.category.name
+                values.add(PieEntry(sum.absoluteValue, label))
+            }
         }
 
-        val dataSet = PieDataSet(values, "")
-        setColorsToDataSet(dataSet)
-
+        val dataSet = PieDataSet(values, null)
+        dataSet.colors = Colors.getColors()
         val data = PieData(dataSet)
+
         data.setValueFormatter(PercentFormatter(monthSpendingByCategoryChart))
         setTextStyleToData(data)
 
@@ -155,22 +154,32 @@ class ReportsFragment : Fragment() {
     }
 
     private fun updateSpendingsByMonth(recordsWithCategory: List<RecordWithCategory>) {
-        val dateWithRecords = mutableMapOf<LocalDateTime?, Double>()
+        val dateWithRecords = mutableMapOf<Int, Double>()
         for (entry in recordsWithCategory) {
             val amount = if (entry.record == null) 0.0 else entry.record.amount
+            val date = entry.record.date.dayOfMonth
+
             dateWithRecords.merge(
-                entry.record?.date,amount
+                date,amount
             ) { t, u -> (t + u) }
 
         }
+        Log.d("LINDA",dateWithRecords.toString())
+
+        if (dateWithRecords.isNotEmpty()) {
+            val min = Collections.min(dateWithRecords.values) - 50
+            spendingsByMonthChart.axisLeft.axisMinimum = min.toFloat()
+            spendingsByMonthChart.axisRight.axisMinimum = min.toFloat()
+        }
+
 
 
         val values = ArrayList<BarEntry>()
         for ((date,amount) in dateWithRecords) {
             values.add(
                 BarEntry(
-                    date?.dayOfMonth?.toFloat() ?: 0f,
-                    amount.toFloat() ?: 0f
+                    date.toFloat(),
+                    amount.toFloat()
                 )
             )
         }

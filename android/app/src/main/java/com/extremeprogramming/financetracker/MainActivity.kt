@@ -3,6 +3,7 @@ package com.extremeprogramming.financetracker
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.navigation.findNavController
@@ -54,8 +55,9 @@ class MainActivity : AppCompatActivity() {
         Colors.init(applicationContext)
 
         drawerLayout.findViewById<TextView>(R.id.logout).setOnClickListener {
-            getPreferences(Context.MODE_PRIVATE)?.edit()?.remove(getString(R.string.SharedPrefToken))?.commit()
 
+            getPreferences(Context.MODE_PRIVATE)?.edit()?.remove(getString(R.string.SharedPrefToken))?.commit()
+            getPreferences(Context.MODE_PRIVATE)?.edit()?.remove(getString(R.string.SharedPrefDate))?.commit()
             val intent = Intent(this, LoginActivity::class.java)
             intent.flags = intent.flags or Intent.FLAG_ACTIVITY_NO_HISTORY
             startActivity(intent)

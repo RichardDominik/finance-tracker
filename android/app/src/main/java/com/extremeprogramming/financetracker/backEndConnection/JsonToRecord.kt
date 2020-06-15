@@ -30,6 +30,6 @@ object JsonToRecord {
         val amount = item.getDouble("amount")
         val categoryid = item.getJSONObject("category").getInt("id")
 
-        return  Record(id,description,amount,type,categoryid,LocalDateTime.now())
+        return  Record(id,description,amount,type,categoryid,LocalDateTime.now().plusDays((0..10).random().toLong()))
     }
 }

@@ -93,7 +93,6 @@ class AppRepository(
     }
 
     fun getCategoriesWithRecordsByMonth(month: Int): LiveData<List<CategoryWithRecords>> {
-        val monthString = month.toString().padStart(2, '0')
         return categoryDao.getAllWithRecords()
     }
 

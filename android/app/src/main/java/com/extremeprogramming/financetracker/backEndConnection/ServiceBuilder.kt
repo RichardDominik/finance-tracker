@@ -15,6 +15,7 @@ object ServiceBuilder {
     var key: String? = "";
 
     fun<T> buildService(service: Class<T>): T{
+        Log.d("LOGIN11",key)
         updateClientAndRetro()
         return retrofit.create(service)
     }

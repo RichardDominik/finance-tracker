@@ -5,7 +5,7 @@ import androidx.room.Relation
 
 class RecordWithCategory (
     @Embedded
-    val record: Record?,
+    val record: Record,
 
     @Relation(
         parentColumn = "recordCategoryId",
